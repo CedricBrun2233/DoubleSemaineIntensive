@@ -1,19 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-<<<<<<< HEAD
-public class Support : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-=======
 public class Support : Card
 {
     private Dice target;
@@ -22,5 +9,4 @@ public class Support : Card
     {
         this.target = target;
     }
->>>>>>> Cedric
 }
