@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance;
+    public static GameManager instance;
 
-    List<bool> levelsFinished;
+    private bool isTurnPlayer1;
 
-	// Use this for initialization
-	void Awake ()
+    // Use this for initialization
+    void Awake ()
     {
+        isTurnPlayer1 = true;
         DontDestroyOnLoad(this);
 	}
 
@@ -25,7 +26,20 @@ public class GameManager : MonoBehaviour
     
     void Update ()
     {
-	
+	    if(Application.loadedLevel == 2)
+        {
+            if(isTurnPlayer1)
+            {
+                PlayerManager.PlayTurn(isTurnPlayer1);
+                isTurnPlayer1 = false;
+            }
+            else
+            {
+                PlayerManager.PlayTurn(isTurnPlayer1);
+                isTurnPlayer1 = true;
+            }
+        }
+
 	}
 
     public void Lose()
@@ -34,6 +48,7 @@ public class GameManager : MonoBehaviour
     }
     public void Win(int numberLevel)
     {
-        levelsFinished[numberLevel] = true;
+
     }
+
 }

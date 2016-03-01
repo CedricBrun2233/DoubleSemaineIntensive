@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Card : MonoBehaviour
 {
-    private string cardName;
-    private int energy;
+    protected string cardName;
+    protected int energy;
 
     public Card(int energy, string name)
     {
@@ -12,12 +12,12 @@ public class Card : MonoBehaviour
         cardName = name;
     }
 
-    public string getName()
+    public string GetName()
     {
         return cardName;
     }
 
-    public int getEnergy()
+    public int GetEnergy()
     {
         return energy;
     }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+<<<<<<< HEAD
 public class Support : MonoBehaviour {
 
 	// Use this for initialization
@@ -12,4 +13,14 @@ public class Support : MonoBehaviour {
 	void Update () {
 	
 	}
+=======
+public class Support : Card
+{
+    private Dice target;
+
+    public Support(int energy, string name, Dice target) : base(energy, name)
+    {
+        this.target = target;
+    }
+>>>>>>> Cedric
 }
