@@ -7,7 +7,7 @@ public class Player
     private int score;
     private int mana;
     private int multiplier;
-    private List<Dice> dices;
+    public Dice[] dices;
     private List<Card> deck;
     private List<Card> hand;
     private List<Card> graveyard;
@@ -17,17 +17,10 @@ public class Player
         score = 0;
         mana = 0;
         multiplier = 1;
-        dices = new List<Dice>();
+        dices = new Dice[3];
         deck = new List<Card>();
         hand = new List<Card>();
         graveyard = new List<Card>();
-    }
-
-    public void Draw()
-    {
-        int nb = (int)Random.Range(0, deck.Count-0.5f);
-        hand.Add(deck[nb]);
-        deck.Remove(deck[nb]);
     }
 
     public void AddMana(int value)

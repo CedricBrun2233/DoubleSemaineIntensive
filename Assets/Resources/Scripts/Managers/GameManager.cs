@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour
         {
             if(isTurnPlayer1)
             {
-                PlayerManager.PlayTurn(isTurnPlayer1);
+                PlayerManager.GetInstance().PlayTurn(isTurnPlayer1);
                 isTurnPlayer1 = false;
             }
             else
             {
-                PlayerManager.PlayTurn(isTurnPlayer1);
+                PlayerManager.GetInstance().PlayTurn(isTurnPlayer1);
                 isTurnPlayer1 = true;
             }
         }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Dice : MonoBehaviour
 {
-    public void rollDice()
+    public void RollDice()
     {
         this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 0));
     }
