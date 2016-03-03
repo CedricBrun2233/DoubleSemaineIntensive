@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Dice : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class Dice : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-		//StartCoroutine("checkStill");
+        //StartCoroutine("checkStill");
 	}
 	
 	// Update is called once per frame
