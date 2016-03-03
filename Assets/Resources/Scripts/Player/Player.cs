@@ -34,7 +34,7 @@ public class Player
     {
         foreach (Dice dice in dices)
         {
-            dice.RollDice();
+            //dice.RollDice();
         }
     }
 
