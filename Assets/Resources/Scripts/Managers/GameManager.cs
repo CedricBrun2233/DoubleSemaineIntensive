@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance;
+    public static GameManager instance;
+    
 
-    List<bool> levelsFinished;
-
-	// Use this for initialization
-	void Awake ()
-    {
+    // Use this for initialization
+    void Awake ()
+    { 
         DontDestroyOnLoad(this);
-	}
+        instance = this;
+    }
 
     public static GameManager GetInstance()
     {
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     
     void Update ()
     {
-	
+
 	}
 
     public void Lose()
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
     public void Win(int numberLevel)
     {
-        levelsFinished[numberLevel] = true;
+
     }
+
 }
