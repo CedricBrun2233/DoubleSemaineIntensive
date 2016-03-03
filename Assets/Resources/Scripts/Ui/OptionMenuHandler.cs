@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class MainMenuHandler : MenuHandler
+public class OptionMenuHandler : MenuHandler
 {
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -17,5 +15,4 @@ public class MainMenuHandler : MenuHandler
 	{
 		base.Update ();
 	}
-
 }

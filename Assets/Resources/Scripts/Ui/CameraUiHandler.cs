@@ -10,13 +10,18 @@ public class CameraUiHandler : MonoBehaviour
 	private Transform focusPoints;
 	[SerializeField]
 	private Transform Points;
+	[Header ("Options menu")]
+	[SerializeField]
+	private Transform bus;
 	[Header ("Debug")]
 	[SerializeField]
 	private Transform activeFocusPoint;
 	[SerializeField]
 	private Transform activePoint;
-
-
+	[SerializeField]
+	private Transform up;
+	[SerializeField]
+	private bool useTransformUp;
 
 
 	// Use this for initialization
@@ -29,7 +34,7 @@ public class CameraUiHandler : MonoBehaviour
 	void Update ()
 	{
 		if (!Application.isPlaying) {
-			transform.LookAt (activeFocusPoint, Vector3.up);
+			transform.LookAt (activeFocusPoint, (useTransformUp) ? up.forward : Vector3.up);
 
 			transform.position = activePoint.position;
 
@@ -39,14 +44,23 @@ public class CameraUiHandler : MonoBehaviour
 
 	public void goToFrame (string name)
 	{
-
+		transform.DOKill ();
 		activeFocusPoint = focusPoints.FindChild (name);
 		activePoint = Points.FindChild (name);
-		transform.DOLookAt (activeFocusPoint.position, 0.75f, AxisConstraint.None, Vector3.up).SetEase (Ease.InOutSine).OnComplete (() => {
-			transform.DOMove (activePoint.position, 0.75f).SetEase (Ease.InOutSine).OnUpdate (() => {
-				transform.LookAt (activeFocusPoint, Vector3.up);
-			});
-		});
+		Vector3 direction = activeFocusPoint.position - activePoint.position;
+		Vector3 targetRotation = Quaternion.LookRotation (direction, Vector3.up).eulerAngles;
+		transform.DOMove (activePoint.position, 0.75f).SetEase (Ease.InOutSine);
+		transform.DORotate (targetRotation, 0.75f).SetEase (Ease.InOutSine);
+	}
 
+	public void goToOption ()
+	{
+		transform.DOKill ();
+		activeFocusPoint = focusPoints.FindChild ("Options");
+		activePoint = Points.FindChild ("Options");
+		Vector3 direction = activeFocusPoint.position - activePoint.position;
+		Vector3 targetRotation = Quaternion.LookRotation (direction, bus.forward).eulerAngles;
+		transform.DOMove (activePoint.position, 1.5f).SetEase (Ease.InOutSine);
+		transform.DORotate (targetRotation, 1.5f).SetEase (Ease.InOutSine);
 	}
 }

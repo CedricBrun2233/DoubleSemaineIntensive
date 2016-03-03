@@ -4,8 +4,9 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MainMenuHandler : MenuHandler
+public class PlayMenuHandler : MenuHandler
 {
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -17,5 +18,4 @@ public class MainMenuHandler : MenuHandler
 	{
 		base.Update ();
 	}
-
 }
