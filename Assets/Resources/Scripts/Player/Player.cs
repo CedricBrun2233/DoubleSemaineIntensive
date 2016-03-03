@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Player
 {
@@ -8,7 +9,6 @@ public class Player
     private int mana;
     private int multiplier;
     [HideInInspector]
-    public Card selected;
     public Dice[] dices;
     private List<Card> hand;
 
@@ -17,7 +17,6 @@ public class Player
         score = 0;
         mana = 0;
         multiplier = 1;
-        selected = null;
         dices = new Dice[3];
         for(int i = 0; i < 3; i++)
         {
@@ -48,6 +47,11 @@ public class Player
         hand.Add(card);
     }
 
+    public void RemoveCardInHand(Card card)
+    {
+        hand.Remove(card);
+    }
+
     public void EndOfTurn()
     {
         multiplier = 1;
@@ -57,5 +61,15 @@ public class Player
     public int getHandSize()
     {
         return hand.Count;
+    }
+
+    public List<Card> GetHand()
+    {
+        return hand;
+    }
+
+    public void Cast(Card card)
+    {
+
     }
 }

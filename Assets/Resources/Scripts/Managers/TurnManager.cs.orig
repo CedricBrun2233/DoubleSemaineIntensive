@@ -119,10 +119,18 @@ public class TurnManager : MonoBehaviour
         addCameraForPlayer();
 
         //RollDice();
+<<<<<<< HEAD
         while(dicesValor.Count !=3) {
             yield return new WaitForEndOfFrame();
         }
         valorOk();
+        UIManager.GetInstance().printHandPlayer();
+        InputManager.GetInstance().waitingSelectCard = true;
+=======
+        //while(!etape1) { }
+        //foreach(Dice dice in dices)
+        //AddMana(dice.GetResult());
+>>>>>>> cb052a86f1d284ab946c840a04fee870fe6450ba
         while (!cardSelected)
         {
             yield return new WaitForEndOfFrame();
