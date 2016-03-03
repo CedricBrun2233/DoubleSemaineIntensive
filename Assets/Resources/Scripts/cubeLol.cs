@@ -47,16 +47,16 @@ public class cubeLol : MonoBehaviour {
 
             GameObject dad = col.transform.parent.gameObject;
             List<GameObject> childs = new List<GameObject>();
-            for(int i =0; i< dad.transform.childCount; i++)
+            for (int i = 0; i < dad.transform.childCount; i++)
             {
                 childs.Add(dad.transform.GetChild(i).gameObject);
-            }    
-            foreach(GameObject go in childs)
+            }
+            foreach (GameObject go in childs)
             {
-                    go.AddComponent<BoxCollider>();
-                    go.AddComponent<Rigidbody>();
+                go.AddComponent<BoxCollider>();
+                go.AddComponent<Rigidbody>();
                 go.tag = "physicsAvailable";
-            }        
+            }
         }
     }
 }
