@@ -10,7 +10,11 @@ public class PlayerManager : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
+        player1 = new Player();
+        player2 = new Player();
 
+        StartCoroutine("InitializeManager");
     }
 
     public static PlayerManager GetInstance()
@@ -22,35 +26,11 @@ public class PlayerManager : MonoBehaviour
         return instance;
     }
 
-    public void PlayTurn(bool isPlayer1)
+    IEnumerator InitializeManager()
     {
-        if (isPlayer1)
-        {
-            foreach (Dice dice in player1.dices)
-            {
-                dice.RollDice();
-                //Une fois le mouvement du dé terminé : Checker le result
-                int result = dice.GetResult();
-                player1.AddMana(result);
-            }
-            //UI pour la main du joueur
-            //Selection du Spell a lancer
-            //Lancement du Spell
-            player1.EndOfTurn();
-        }
-        else
-        {
-            foreach (Dice dice in player2.dices)
-            {
-                dice.RollDice();
-                //Une fois le mouvement du dé terminé : Checker le result
-                int result = dice.GetResult();
-                player2.AddMana(result);
-            }
-            //UI pour la main du joueur
-            //Selection du Spell a lancer
-            //Lancement du Spell
-            player2.EndOfTurn();
-        }
+        yield return new WaitForEndOfFrame();
+
+        TurnManager.GetInstance().player1 = this.player1;
+        TurnManager.GetInstance().player2 = this.player2;
     }
 }
