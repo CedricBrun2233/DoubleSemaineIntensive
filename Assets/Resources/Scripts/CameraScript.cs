@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CameraScript : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class CameraScript : MonoBehaviour
         {
             dices[i].transform.parent = transform;
             dices[i].transform.localPosition = new Vector3(-2f+(2f* i),-3,5.5f);
-            dices[i].transform.rotation = Random.rotation;
+            dices[i].transform.rotation = UnityEngine.Random.rotation;
         }
     }
 
@@ -124,7 +125,7 @@ public class CameraScript : MonoBehaviour
                 Vector3 AF = transform.forward * force * 30 * multiplierForce;
                 float magn = AF.magnitude;
                 //magn *= Mathf.Tan(Random.Range(accuracy / 2, -accuracy / 2));
-                magn *= Mathf.Tan(Random.Range(accuracy / 2, -accuracy / 2));
+                magn *= Mathf.Tan(UnityEngine.Random.Range(accuracy / 2, -accuracy / 2));
                 currentDice.GetComponent<Rigidbody>().AddForce(AF + Vector3.right * magn / 8);
                 currentDice.GetComponent<Rigidbody>().useGravity = true;
                 currentPosition = POSITION.STATIC;
@@ -133,20 +134,6 @@ public class CameraScript : MonoBehaviour
             }
             
         }
-
-        if (Input.GetButtonDown("ButtonLB"))
-        {
-            accuracy -= Mathf.PI/36;
-            accuracy = Mathf.Max(accuracyMax, accuracy);
-            //ajuster cone
-        }
-
-        if (Input.GetButtonDown("ButtonRB"))
-        {
-            accuracy += Mathf.PI / 36;
-            accuracy = Mathf.Min(accuracyMin, accuracy);
-            //ajuster cone
-        }
         if (Input.GetButtonDown("ButtonY"))
         {
             force = 0;
@@ -154,6 +141,14 @@ public class CameraScript : MonoBehaviour
         checkforce();
 
         //charger le tir
+    }
+
+    public void changeAngle(int multiplier)
+    {
+        accuracy += multiplier*5;
+        accuracy = Mathf.Min(accuracyMin, accuracy);
+        accuracy = Mathf.Max(accuracyMax, accuracy);
+        Debug.Log(accuracy);
     }
 
     void checkforce()

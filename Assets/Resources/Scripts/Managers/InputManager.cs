@@ -71,7 +71,6 @@ public class InputManager : MonoBehaviour
         {
             inSelectDice = false;
             inCastSpell = true;
-            //CastSpell
             UIManager.GetInstance().UpdateUI();
             return;
         }
@@ -93,7 +92,6 @@ public class InputManager : MonoBehaviour
         }
         if(inShootView)
         {
-            //ChangeCamera
             inShootView = false;
             inStartTurnPlayer = true;
             UIManager.GetInstance().UpdateUI();
@@ -149,7 +147,7 @@ public class InputManager : MonoBehaviour
         }
         if(inShootView)
         {
-            //ChangeAngle
+            TurnManager.GetInstance().playerGameObject.transform.GetChild(0).GetComponent<CameraScript>().changeAngle(-1);
             UIManager.GetInstance().UpdateUI();
         }
     }
@@ -161,7 +159,7 @@ public class InputManager : MonoBehaviour
         }
         if (inShootView)
         {
-            //ChangeAngle
+            TurnManager.GetInstance().playerGameObject.transform.GetChild(0).GetComponent<CameraScript>().changeAngle(1);
             UIManager.GetInstance().UpdateUI();
         }
     }

@@ -25,7 +25,8 @@ public class TurnManager : MonoBehaviour
     private Player currentPlayer;
 
     public Camera globalCamera;
-    private GameObject playerGameObject;
+    [HideInInspector]
+    public GameObject playerGameObject;
 
     void Awake ()
     {
@@ -117,16 +118,15 @@ public class TurnManager : MonoBehaviour
     IEnumerator Turn()
     {
         addCameraForPlayer();
-
-        //RollDice();
+        
         while(dicesValor.Count !=3) {
             yield return new WaitForEndOfFrame();
         }
-        valorOk();
+        valorOk();/*
         while (!cardSelected)
         {
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         //Selection du Spell a lancer
         cardSelected = false;
         if (currentPlayer == player1)
@@ -176,7 +176,7 @@ public class TurnManager : MonoBehaviour
         {
             currentPlayer = player2;
         }
-
+        /*
         while(player1.getHandSize() < 5 && player2.getHandSize() < 5)
         {
             while (!cardSelected)
@@ -186,11 +186,12 @@ public class TurnManager : MonoBehaviour
                 currentPlayer = player2;
             else
                 currentPlayer = player1;
-            Debug.Log(player1.getHandSize());
-            Debug.Log(player2.getHandSize());
+            Debug.Log("SizeHandP1 : " + player1.getHandSize());
+            Debug.Log("SizeHandP2 : " + player2.getHandSize());
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         globalTurnEnded = true;
+        yield return null;
     }
 
     void Update()

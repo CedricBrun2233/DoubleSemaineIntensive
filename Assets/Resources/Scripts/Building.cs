@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Building : MonoBehaviour {
+public class Building : MonoBehaviour
+{
 
     Vector3 position;
     Rigidbody rb;
     Vector3 initialPosition;
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.Sleep();
@@ -15,9 +17,9 @@ public class Building : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (name != "Box001")
+        if (name != "RDS")
         {
-            if(collision.gameObject.tag == "Ground")
+            if (collision.gameObject.tag == "Ground")
             {
                 Destroy(gameObject, 2f);
             }
@@ -48,20 +50,39 @@ public class Building : MonoBehaviour {
 
     public IEnumerator checkStill()
     {
-        yield return new WaitForSeconds(0.1f);
-        while (position != transform.position)
+        yield return new WaitForSeconds(0.5f);
+        position = Vector3.zero;
+       /* while (position != transform.position)
         {
             position = transform.position;
-            yield return new WaitForSeconds(0.3f);
-        }
-        if(name == "Box001")
+            yield return new WaitForSeconds(10f);
+        }*/
+        while(rb.velocity != Vector3.zero)
         {
-            if(Vector3.Distance(transform.position, initialPosition)>1)
+            yield return new WaitForSeconds(1f);
+        }
+        if (name == "RDS")
+        {
+            if (Vector3.Distance(transform.position, initialPosition) > 1)
             {
                 Destroy(gameObject, 2f);
             }
         }
         rb.isKinematic = true;
-        yield return null;
+       // yield return null;
+    }
+
+
+    void destruct()
+    {
+        /*Collider[] co = Physics.OverlapSphere(transform.position, 4f);
+        foreach (Collider currentCo in co)
+        {
+            if (currentCo.tag == "needPhysics")
+            {
+                currentCo.GetComponent<Building>().bump();
+            }
+        }*/
+        Destroy(gameObject);
     }
 }

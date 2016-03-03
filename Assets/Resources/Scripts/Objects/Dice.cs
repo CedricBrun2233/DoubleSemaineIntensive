@@ -20,7 +20,14 @@ public class Dice : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            Badaboum();
+        }
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            Tilt();
+        }
 
 		
     }
@@ -52,9 +59,7 @@ public class Dice : MonoBehaviour {
 		else if (Vector3.Dot (-transform.right, Vector3.up)>0.5f)
             result = 5;
 		else result = 0;
-		Debug.Log ("Result :" + result);
         TurnManager.instance.addValor(result);
-        Badaboum();
 	}
 
     public int GetResult()
@@ -64,18 +69,38 @@ public class Dice : MonoBehaviour {
 
     void Badaboum()
     {
-        Debug.Log("tayo");
-        Collider[] co = Physics.OverlapSphere(transform.position, 20f);
+        Collider[] co = Physics.OverlapSphere(transform.position, 15f);
         foreach(Collider currentCo in co)
         {
             if (currentCo.tag == "needPhysics")
             {
+                /*Transform go = currentCo.transform.parent;
+
+                for(int i = 0; i < go.childCount;i++)
+                {
+                    go.GetChild(i).GetComponent<Building>().bump();
+                    Debug.Log("lol");
+                }*/
+               
                 currentCo.GetComponent<Building>().bump();
                 currentCo.GetComponent<Building>().changeWeight();
                 currentCo.GetComponent<Rigidbody>().AddExplosionForce(450f, transform.position, 15f);
+                
             }
         }
-        rb.AddExplosionForce(450f, transform.position, 20f);
+        XInput.instance.useVibe(0, 0.5f, 1, 1);
+        rb.AddExplosionForce(450f, transform.position, 15f);
+    }
+
+    void Tilt()
+    {
+        float X = Random.Range(-1f, 1f);
+        float Z = Random.Range(-1f, 1f);
+        Vector3 displacment = new Vector3(X, 0, Z);
+        displacment.Normalize();
+        rb.AddForce((displacment+Vector3.up)*200);
+        Debug.Log(displacment);
+        XInput.instance.useVibe(0, 0.5f, 1, 1);
     }
 
     void OnCollisionEnter(Collision col)

@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     void Awake ()
     {
-        instance = this;
+        instance = this;/*
         progressBarre.SetActive(false);
         pressAToContinue.SetActive(false);
         pressXToTacticalView.SetActive(false);
@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
         score.SetActive(false);
         animRightJoystickShoot.SetActive(false);
         pressTriggertoShoot.SetActive(false);
-        selectedCard.SetActive(false);
+        selectedCard.SetActive(false);*/
     }
     
 
@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
 
     public void HideAll()
     {
-        progressBarre.SetActive(false);
+        /*progressBarre.SetActive(false);
         pressAToContinue.SetActive(false);
         pressXToTacticalView.SetActive(false);
         pressXToBack.SetActive(false);
@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
         score.SetActive(false);
         animRightJoystickShoot.SetActive(false);
         pressTriggertoShoot.SetActive(false);
-        selectedCard.SetActive(false);
+        selectedCard.SetActive(false);*/
     }
 
     public void UpdateUI()
