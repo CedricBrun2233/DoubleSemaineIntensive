@@ -8,7 +8,7 @@ public class CameraScript : MonoBehaviour
     float verticalLeft;
     float horizontalLeft;
     public GameObject mapCenter;
-    GameObject[] dice;
+    public GameObject[] dices;
     public float speedRotationArround = 20f;
     public float speedRotationVerticalScope = 20f;
     public float speedRotationHorizontalScope = 20f;
@@ -33,16 +33,16 @@ public class CameraScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        dice = new GameObject[3];
-       
-        dice[0] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
-        dice[1] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
-        dice[2] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
+        dices = new GameObject[3];
+
+        dices[0] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
+        dices[1] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
+        dices[2] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
         for(int i = 0; i<3;i++)
         {
-            dice[i].transform.parent = transform;
-            dice[i].transform.localPosition = new Vector3(-1.5f+(1.5f* i),-3,5.5f);
-            dice[i].transform.rotation = Random.rotation;
+            dices[i].transform.parent = transform;
+            dices[i].transform.localPosition = new Vector3(-2f+(2f* i),-3,5.5f);
+            dices[i].transform.rotation = Random.rotation;
         }
     }
 
@@ -117,7 +117,7 @@ public class CameraScript : MonoBehaviour
 
         if (Input.GetAxis("Trigger") > 0.5f || Input.GetAxis("Trigger") < -0.5f)
         {
-            foreach (GameObject currentDice in dice)
+            foreach (GameObject currentDice in dices)
             {
                 currentDice.transform.parent = null;
                 force = Mathf.Max(force, 10f);
@@ -167,7 +167,6 @@ public class CameraScript : MonoBehaviour
         {
             force = Mathf.Max(0f, force - Time.deltaTime * 10);
         }
-        Debug.Log(force);
     }
 
     void follow()
@@ -176,7 +175,7 @@ public class CameraScript : MonoBehaviour
         {
             currentPosition = POSITION.STATIC;
         }
-
+        SelectDices();
     }
 
     void staticCamera()
@@ -198,7 +197,43 @@ public class CameraScript : MonoBehaviour
         float y = (dice[0].transform.position.y + dice[1].transform.position.y + dice[2].transform.position.y) / 3;
         float z = (dice[0].transform.position.z + dice[1].transform.position.z + dice[2].transform.position.z) / 3;
         Vector3 look = new Vector3(x, y, z);*/
-        Vector3 look = (dice[0].transform.position + dice[1].transform.position+dice[2].transform.position)/3;
+        Vector3 look = (dices[0].transform.position + dices[1].transform.position+ dices[2].transform.position)/3;
         return look;
+    }
+
+    void SelectDices()
+    {
+        GameObject[] farDices = new GameObject[2];
+        float[] dists = new float[3];
+        dists[0] = Vector3.Distance(dices[0].transform.position, dices[1].transform.position);
+        dists[1] = Vector3.Distance(dices[2].transform.position, dices[1].transform.position);
+        dists[2] = Vector3.Distance(dices[2].transform.position, dices[0].transform.position);
+        if (dists[0] > dists[1] && dists[0] > dists[2])
+        {
+            farDices[0] = dices[0];
+            farDices[1] = dices[1];
+        }
+        else if (dists[1] > dists[2])
+        {
+            farDices[0] = dices[1];
+            farDices[1] = dices[2];
+        }
+        else
+        {
+            farDices[0] = dices[0];
+            farDices[1] = dices[2];
+        }
+        Debug.Log("trouvé les dés");
+        GetPosition(farDices);
+    }
+
+    void GetPosition(GameObject[] farDices)
+    {
+        Vector3 center = (farDices[0].transform.position + farDices[1].transform.position) / 2;
+        transform.position = new Vector3(center.x, transform.position.y, center.z);
+        transform.LookAt(new Vector3(farDices[0].transform.position.x, transform.position.y, farDices[0].transform.position.z));
+        transform.Rotate(0, 90, 0);
+        transform.Translate(-transform.forward * Vector3.Distance(farDices[0].transform.position, farDices[1].transform.position));
+        transform.LookAt(getMiddleOfThree());
     }
 }

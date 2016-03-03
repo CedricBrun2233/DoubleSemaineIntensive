@@ -52,6 +52,8 @@ public class Dice : MonoBehaviour {
             result = 5;
 		else result = 0;
 		Debug.Log ("Result :" + result);
+        TurnManager.instance.addValor(result);
+        Badaboum();
 	}
 
     public int GetResult()
@@ -61,11 +63,16 @@ public class Dice : MonoBehaviour {
 
     void Badaboum()
     {
+        Debug.Log("tayo");
         Collider[] co = Physics.OverlapSphere(transform.position, 20f);
         foreach(Collider currentCo in co)
         {
-            if(currentCo.GetComponent<Rigidbody>())
+            if (currentCo.tag == "needPhysics")
+            {
+                currentCo.GetComponent<Building>().bump();
+                currentCo.GetComponent<Building>().changeWeight();
                 currentCo.GetComponent<Rigidbody>().AddExplosionForce(450f, transform.position, 15f);
+            }
         }
         rb.AddExplosionForce(450f, transform.position, 20f);
     }

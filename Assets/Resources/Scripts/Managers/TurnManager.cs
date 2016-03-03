@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     public Player player2;
 
     private List<Card> cardsInDraft;
+    private List<int> dicesValor;
     
     private bool turnPlayer1Ended;
     private bool turnPlayer2Ended;
@@ -23,9 +24,13 @@ public class TurnManager : MonoBehaviour
 
     private Player currentPlayer;
 
+    public Camera globalCamera;
+    private GameObject playerGameObject;
+
     void Awake ()
     {
         cardsInDraft = new List<Card>();
+        dicesValor = new List<int>();
 
         instance = this;
         turnPlayer1Ended = false;
@@ -34,7 +39,7 @@ public class TurnManager : MonoBehaviour
         globalTurnPlayer1Ended = false;
         globalTurnPlayer2Ended = false;
         cardSelected = false;
-
+       // globalCamera = Camera.main;
         StartCoroutine("StartGame");
     }
 	
@@ -83,12 +88,41 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
     }
 
+    void addCameraForPlayer()
+    {
+        playerGameObject = Instantiate(Resources.Load("GA/Prefabs/MapCenter", typeof(GameObject))) as GameObject;
+        playerGameObject.transform.position = Vector3.zero;
+        globalCamera.enabled = false;
+        
+    }
+
+    public void addValor(int valor)
+    {
+        dicesValor.Add(valor);
+    }
+
+    void valorOk()
+    {
+        int valor = dicesValor[0] + dicesValor[1] + dicesValor[2];
+        dicesValor.Clear();
+        currentPlayer.AddMana(valor);
+        Debug.Log(valor);
+        GameObject camera = playerGameObject.transform.GetChild(0).gameObject;
+        camera.transform.parent = null;
+        camera.GetComponent<TestCamera>().enabled = true;
+        camera.GetComponent<TestCamera>().dices = camera.GetComponent<CameraScript>().dices;
+        camera.GetComponent<CameraScript>().enabled = false;
+    }
+
     IEnumerator Turn()
     {
+        addCameraForPlayer();
+
         //RollDice();
-        //while(!etape1) { }
-        //foreach(Dice dice in dices)
-        //AddMana(dice.GetResult());
+        while(dicesValor.Count !=3) {
+            yield return new WaitForEndOfFrame();
+        }
+        valorOk();
         UIManager.GetInstance().printHandPlayer();
         InputManager.GetInstance().waitingSelectCard = true;
         while (!cardSelected)
