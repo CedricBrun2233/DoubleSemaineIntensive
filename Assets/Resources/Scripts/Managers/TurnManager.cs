@@ -89,16 +89,12 @@ public class TurnManager : MonoBehaviour
         //while(!etape1) { }
         //foreach(Dice dice in dices)
         //AddMana(dice.GetResult());
-        UIManager.GetInstance().printHandPlayer();
-        InputManager.GetInstance().waitingSelectCard = true;
         while (!cardSelected)
         {
             yield return new WaitForEndOfFrame();
         }
-
         //Selection du Spell a lancer
         cardSelected = false;
-        //Lancement du Spell
         if (currentPlayer == player1)
             turnPlayer1Ended = true;
         else
@@ -112,10 +108,13 @@ public class TurnManager : MonoBehaviour
     public void SelectCard(Card card)
     {
         cardSelected = true;
+        //Cast un Spell
         if(!turnPlayer2Ended)
         {
-            currentPlayer.selected = card;
+            currentPlayer.Cast(card);
+            currentPlayer.RemoveCardInHand(card);
         }
+        //En Draft
         else
         {
             currentPlayer.AddCardInHand(card);
@@ -146,7 +145,6 @@ public class TurnManager : MonoBehaviour
 
         while(player1.getHandSize() < 5 && player2.getHandSize() < 5)
         {
-            InputManager.GetInstance().waitingSelectCard = true;
             while (!cardSelected)
                 yield return new WaitForEndOfFrame();
 
@@ -158,18 +156,6 @@ public class TurnManager : MonoBehaviour
             Debug.Log(player2.getHandSize());
             yield return new WaitForEndOfFrame();
         }
-        /*
-        if (player1.getHandSize() == 5)
-        {
-            foreach (Card card in cardsInDraft)
-                player2.AddCardInHand(card);
-        }
-        else
-        {
-            foreach (Card card in cardsInDraft)
-                player1.AddCardInHand(card);
-        }
-        */
         globalTurnEnded = true;
     }
 
