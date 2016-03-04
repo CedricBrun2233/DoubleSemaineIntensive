@@ -6,6 +6,7 @@ public class Building : MonoBehaviour
     
     Rigidbody rb;
     Vector3 initialPosition;
+    bool destroyable = false;
     // Use this for initialization
     void Awake()
     {
@@ -19,9 +20,11 @@ public class Building : MonoBehaviour
     {
         if (name != "RDC")
         {
-            if (collision.gameObject.tag == "Ground")
+            if (collision.gameObject.tag == "Ground" && destroyable == false)
             {
-                Destroy(gameObject, 2f);
+                SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.destruction[Random.Range(0, SoundManager.Instance.destruction.Length)], 0.5f, true);
+                Destroy(gameObject, 5.2f);
+                destroyable = true;
             }
         }
 
@@ -58,7 +61,8 @@ public class Building : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, initialPosition) > 1)
             {
-                Destroy(gameObject, 2f);
+                SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.destruction[Random.Range(0, SoundManager.Instance.destruction.Length)], 0.5f, true);
+                Destroy(gameObject, 5.2f);
             }
         }
     }
