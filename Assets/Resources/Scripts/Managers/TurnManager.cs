@@ -76,11 +76,11 @@ public class TurnManager : MonoBehaviour
     public IEnumerator Game()
     {
         yield return new WaitForEndOfFrame();
-        ChangeUI();
+       // ChangeUI();
         StartCoroutine(Turn());
         while (!turnPlayer1Ended)
             yield return new WaitForEndOfFrame();
-        ChangeUI();
+       // ChangeUI();
         StartCoroutine(Turn());
         while (!turnPlayer2Ended)
             yield return new WaitForEndOfFrame();
@@ -226,7 +226,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public void ChangeUI()
+   /* public void ChangeUI()
     {
         if (currentPlayer == player1)
         {
@@ -236,7 +236,7 @@ public class TurnManager : MonoBehaviour
         {
             UIManager.GetInstance().currentPlayer = 2;
         }
-    }
+    }*/
 
     IEnumerator GlobalTurn()
     {
