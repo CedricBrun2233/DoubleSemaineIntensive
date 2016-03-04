@@ -36,7 +36,7 @@ public class PressUi : MonoBehaviour
 	void OnValidate ()
 	{
 		transform.FindChild ("Text").GetComponent<Text> ().text = text;
-		transform.FindChild ("Panel").FindChild ("Image").GetComponent<Image> ().sprite = buttonImage;
+		transform.FindChild ("Image").GetComponent<Image> ().sprite = buttonImage;
 	}
 
 	// Use this for initialization
