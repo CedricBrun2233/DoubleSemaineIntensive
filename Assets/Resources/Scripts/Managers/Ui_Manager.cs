@@ -74,6 +74,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 
 	public void GoToState (UiState state)
 	{
+		Debug.Log ("[UI Manager] go to state : " + state);
 		m_state = state;
 		switch (state) {
 		case UiState.DraftJ1:

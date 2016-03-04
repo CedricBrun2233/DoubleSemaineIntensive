@@ -35,13 +35,15 @@ public class InputManager : MonoBehaviour
 		globalTurnPlayer1 = false;
 		globalTurnPlayer2 = false;
 		handActive = false;
-		inStartTurnPlayer = false;
+		inStartTurnPlayer = true;
 		inTacticalView = false;
-		inShootView = true;
+		inShootView = false;
 		diceSended = false;
 		inSelectSpell = false;
 		inSelectDice = false;
 		inCastSpell = false;
+
+		Ui_Manager.Instance.GoToState (UiState.Positioning);
 
 		//ToSelectDice&Card
 		cardPreSelected = null;
@@ -66,21 +68,20 @@ public class InputManager : MonoBehaviour
 			inStartTurnPlayer = false;
 			inShootView = true;
 			//ChangeCamera
-			UIManager.GetInstance ().UpdateUI ();
+			Ui_Manager.Instance.GoToState (UiState.Throw);
 			return;
 		}
 		if (inSelectDice) {
 			inSelectDice = false;
 			inCastSpell = true;
 			//CastSpell
-			UIManager.GetInstance ().UpdateUI ();
 			return;
 		}
 		if (inSelectSpell) {
 			inSelectSpell = false;
 			inSelectDice = true;
 			TurnManager.GetInstance ().SelectCard (cardPreSelected);
-			UIManager.GetInstance ().UpdateUI ();
+			Ui_Manager.Instance.GoToState (UiState.DiceSelect);
 		}
 	}
 
@@ -88,20 +89,23 @@ public class InputManager : MonoBehaviour
 	{
 		if (handActive) {
 			handActive = false;
-			UIManager.GetInstance ().UpdateUI ();
+			if (inStartTurnPlayer)
+				Ui_Manager.Instance.GoToState (UiState.Positioning);
+			else
+				Ui_Manager.Instance.GoToState (UiState.Throw);
 			return;
 		}
 		if (inShootView) {
 			//ChangeCamera
 			inShootView = false;
 			inStartTurnPlayer = true;
-			UIManager.GetInstance ().UpdateUI ();
+			Ui_Manager.Instance.GoToState (UiState.Positioning);
 			return;
 		}
 		if (inSelectDice) {
 			inSelectDice = false;
 			inSelectSpell = true;
-			UIManager.GetInstance ().UpdateUI ();
+			Ui_Manager.Instance.GoToState (UiState.SpellSelect);
 		}
 	}
 
@@ -113,13 +117,21 @@ public class InputManager : MonoBehaviour
 		if (inTacticalView) {
 			inTacticalView = false;
 			//ChangeCamera
-			UIManager.GetInstance ().UpdateUI ();
+			if (inStartTurnPlayer) {
+				Ui_Manager.Instance.GoToState (UiState.Positioning);
+			} else if (inShootView) {
+				Ui_Manager.Instance.GoToState (UiState.Throw);
+			} else if (inSelectSpell) {
+				Ui_Manager.Instance.GoToState (UiState.SpellSelect);
+			} else if (inSelectDice) {
+				Ui_Manager.Instance.GoToState (UiState.DiceSelect);
+			}
 			return;                
 		}
 		if (inStartTurnPlayer || inShootView || inSelectSpell || inSelectDice) {
 			inTacticalView = true;
 			//ChangeCamera
-			UIManager.GetInstance ().UpdateUI ();
+			Ui_Manager.Instance.GoToState (UiState.Tactical);
 			return;
 		}
 	}
@@ -128,12 +140,18 @@ public class InputManager : MonoBehaviour
 	{
 		if (handActive) {
 			handActive = false;
-			UIManager.GetInstance ().UpdateUI ();
+			if (inStartTurnPlayer)
+				Ui_Manager.Instance.GoToState (UiState.Positioning);
+			else
+				Ui_Manager.Instance.GoToState (UiState.Throw);
 			return;
 		}
 		if (inStartTurnPlayer || inShootView) {
 			handActive = true;
-			UIManager.GetInstance ().UpdateUI ();
+			if (TurnManager.GetInstance ().currentPlayer == TurnManager.GetInstance ().player1)
+				Ui_Manager.Instance.GoToState (UiState.HandJ1);
+			else
+				Ui_Manager.Instance.GoToState (UiState.HandJ2);
 		}
 	}
 
@@ -144,7 +162,6 @@ public class InputManager : MonoBehaviour
 		}
 		if (inShootView) {
 			//ChangeAngle
-			UIManager.GetInstance ().UpdateUI ();
 		}
 	}
 
@@ -155,7 +172,6 @@ public class InputManager : MonoBehaviour
 		}
 		if (inShootView) {
 			//ChangeAngle
-			UIManager.GetInstance ().UpdateUI ();
 		}
 	}
 
