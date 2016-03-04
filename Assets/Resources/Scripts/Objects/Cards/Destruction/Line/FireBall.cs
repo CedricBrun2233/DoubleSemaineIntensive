@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FireBall : Destruction
 {
@@ -12,10 +13,8 @@ public class FireBall : Destruction
         this.speed = speed;
     }
 
-    void OnCollisionEnter(Collision col)
+    public override void Cast(List<GameObject> targets)
     {
-        //Bordel de Valentin
+
     }
-
-
 }

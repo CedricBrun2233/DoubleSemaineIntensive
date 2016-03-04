@@ -1,15 +1,40 @@
 fileFormatVersion: 2
-guid: 95d4f5c9abc742f40a72ce97b3641991
-timeCreated: 1456991877
+guid: e970fd8f1eabf2f4dad5a7843019a710
+timeCreated: 1457007248
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box001
+    100000: Sm_Bigben
+    100002: //RootNode
+    100004: Sm_bigben
+    100006: Sm_bigben_base_1
+    100008: Sm_bigben_base_2
+    100010: Sm_bigben_base_3
+    100012: Sm_bigben_base_4
+    400000: Sm_Bigben
+    400002: //RootNode
+    400004: Sm_bigben
+    400006: Sm_bigben_base_1
+    400008: Sm_bigben_base_2
+    400010: Sm_bigben_base_3
+    400012: Sm_bigben_base_4
+    2300000: Sm_Bigben
+    2300002: Sm_bigben_base_1
+    2300004: Sm_bigben_base_2
+    2300006: Sm_bigben_base_3
+    2300008: Sm_bigben_base_4
+    3300000: Sm_Bigben
+    3300002: Sm_bigben_base_1
+    3300004: Sm_bigben_base_2
+    3300006: Sm_bigben_base_3
+    3300008: Sm_bigben_base_4
+    4300000: Sm_bigben_base_2
+    4300002: Sm_bigben_base_4
+    4300004: Sm_bigben_base_1
+    4300006: Sm_bigben_base_3
+    4300008: Sm_Bigben
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1

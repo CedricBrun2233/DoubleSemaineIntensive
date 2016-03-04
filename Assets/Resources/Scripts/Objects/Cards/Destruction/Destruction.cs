@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Destruction : Card
+public abstract class Destruction : Card
 {
-    private float force;
+    protected float force;
 
     public Destruction(int energy, string name, float force) : base(energy, name)
     {

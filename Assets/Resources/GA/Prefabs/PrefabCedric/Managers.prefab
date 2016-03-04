@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &124488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 429722}
+  - 114: {fileID: 11499476}
+  - 114: {fileID: 11498012}
+  - 114: {fileID: 11470590}
+  - 114: {fileID: 11498852}
+  - 114: {fileID: 11475468}
+  - 114: {fileID: 11421772}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &429722
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.338005, y: -0.4463992, z: 201.71164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11421772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c4151723bf53e4babc32db2121e9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11470590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d51b2aebfd042459c08f5d65f7ab27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11475468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8e64cdd74d38541b2d9b784615b368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSelected: 0
+  globalCamera: {fileID: 0}
+  playerGameObject: {fileID: 0}
+--- !u!114 &11498012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aee96891693b1b449b764f9a0294015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handActive: 0
+  inStartTurnPlayer: 0
+  inTacticalView: 0
+  inShootView: 0
+  diceSended: 0
+  inSelectSpell: 0
+  inSelectDice: 0
+  inCastSpell: 0
+--- !u!114 &11498852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e15a163f294cdb4ba9c4b2080dc6257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlayer: 0
+  progressBarre: {fileID: 0}
+  pressAToContinue: {fileID: 0}
+  pressXToTacticalView: {fileID: 0}
+  pressXToBack: {fileID: 0}
+  pressYToShowHand: {fileID: 0}
+  pressYToCloseHand: {fileID: 0}
+  pressBToBack: {fileID: 0}
+  pressTriggertoShoot: {fileID: 0}
+  coneVise: {fileID: 0}
+  shoot: {fileID: 0}
+  animRightJoystickShoot: {fileID: 0}
+  score: {fileID: 0}
+  selectedCard: {fileID: 0}
+  UIHandActive: 0
+  UIInStartTurnPlayer: 0
+  UIInTacticalView: 0
+  UIInShootView: 0
+  UIDiceSended: 0
+  UIInSelectSpell: 0
+  UIInSelectDice: 0
+  UIInCastSpell: 0
+--- !u!114 &11499476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dd67927b2510543bea46a882fd8aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 124488}
+  m_IsPrefabParent: 1
