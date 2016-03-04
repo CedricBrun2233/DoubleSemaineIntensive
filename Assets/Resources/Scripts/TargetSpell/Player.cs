@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player
+public class Player : MonoBehaviour
 {
     private int score;
     private int mana;
@@ -68,8 +68,9 @@ public class Player
         return hand;
     }
 
-    public void Cast(Card card)
+    public void Cast(Card card, List<GameObject> targets)
     {
-
+        card.Cast(targets);
+        hand.Remove(card);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Card : MonoBehaviour
+public abstract class Card : MonoBehaviour
 {
     protected string cardName;
     protected int energy;
@@ -21,4 +22,6 @@ public class Card : MonoBehaviour
     {
         return energy;
     }
+
+    public abstract void Cast(List<GameObject> targets);
 }

@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 
     [HideInInspector]
     public int currentPlayer;
-    
+
     public GameObject progressBarre;
     public GameObject pressAToContinue;
     public GameObject pressXToTacticalView;
@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public bool UIInCastSpell;
 
-    void Awake ()
+    void Awake()
     {
         instance = this;/*
         progressBarre.SetActive(false);
@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
         pressTriggertoShoot.SetActive(false);
         selectedCard.SetActive(false);*/
     }
-    
+
 
     public static UIManager GetInstance()
     {
