@@ -18,10 +18,10 @@ public class TurnManager : MonoBehaviour
     private bool turnPlayer1Ended;
     private bool turnPlayer2Ended;
     private bool globalTurnEnded;
-    private bool globalTurnPlayer1Ended;
-    private bool globalTurnPlayer2Ended;
+    [HideInInspector]
     public bool cardSelected;
 
+    [HideInInspector]
     public Player currentPlayer;
 
     public Camera globalCamera;
@@ -37,8 +37,6 @@ public class TurnManager : MonoBehaviour
         turnPlayer1Ended = false;
         turnPlayer2Ended = false;
         globalTurnEnded = false;
-        globalTurnPlayer1Ended = false;
-        globalTurnPlayer2Ended = false;
         cardSelected = false;
        // globalCamera = Camera.main;
         StartCoroutine("StartGame");
@@ -51,6 +49,11 @@ public class TurnManager : MonoBehaviour
             instance = new TurnManager();
         }
         return instance;
+    }
+
+    public List<Card> getHandCurrentPlayer()
+    {
+        return currentPlayer.GetHand();
     }
 
     public void EndOfTurn()
@@ -76,16 +79,17 @@ public class TurnManager : MonoBehaviour
     public IEnumerator Game()
     {
         yield return new WaitForEndOfFrame();
-        ChangeUI();
+        Debug.Log("GLobalTurn");
+        StartCoroutine(GlobalTurn());
+        while (!globalTurnEnded)
+            yield return new WaitForEndOfFrame();
+        Debug.Log("TUrnP1");
         StartCoroutine(Turn());
         while (!turnPlayer1Ended)
             yield return new WaitForEndOfFrame();
-        ChangeUI();
+        Debug.Log("TurnP2");
         StartCoroutine(Turn());
         while (!turnPlayer2Ended)
-            yield return new WaitForEndOfFrame();
-        StartCoroutine(GlobalTurn());
-        while (!globalTurnEnded)
             yield return new WaitForEndOfFrame();
     }
 
@@ -225,18 +229,7 @@ public class TurnManager : MonoBehaviour
             cardsInDraft.Remove(card);
         }
     }
-
-    public void ChangeUI()
-    {
-        if (currentPlayer == player1)
-        {
-            UIManager.GetInstance().currentPlayer = 1;
-        }
-        else
-        {
-            UIManager.GetInstance().currentPlayer = 2;
-        }
-    }
+    
 
     IEnumerator GlobalTurn()
     {
@@ -266,12 +259,12 @@ public class TurnManager : MonoBehaviour
 
     void Update()
     {
-        if (globalTurnEnded)
+        if (turnPlayer2Ended)
         {
             StartCoroutine(Game());
+            globalTurnEnded = false;
             turnPlayer1Ended = false;
             turnPlayer2Ended = false;
-            globalTurnEnded = false;
         }
     }
 }

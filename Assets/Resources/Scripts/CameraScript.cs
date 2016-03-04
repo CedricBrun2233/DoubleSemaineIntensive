@@ -39,6 +39,13 @@ public class CameraScript : MonoBehaviour
         dices[0] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
         dices[1] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
         dices[2] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
+
+        TurnManager.GetInstance().currentPlayer.GODices = this.dices;
+        for(int i = 0; i < TurnManager.GetInstance().currentPlayer.GODices.Length; i++)
+        {
+            GameObject go = TurnManager.GetInstance().currentPlayer.GODices[i];
+            TurnManager.GetInstance().currentPlayer.dices[i] = (go.GetComponent<Dice>());
+        }
         for(int i = 0; i<3;i++)
         {
             dices[i].transform.parent = transform;

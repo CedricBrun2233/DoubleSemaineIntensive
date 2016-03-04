@@ -13,9 +13,6 @@ public class InputManager : MonoBehaviour
 
 	private Card cardPreSelected;
 	private Dice dicePreSelected;
-    
-	private bool globalTurnPlayer1;
-	private bool globalTurnPlayer2;
 
 	public bool handActive;
 	public bool inStartTurnPlayer;
@@ -32,8 +29,6 @@ public class InputManager : MonoBehaviour
 		instance = this;
 
 		//To UI
-		globalTurnPlayer1 = false;
-		globalTurnPlayer2 = false;
 		handActive = false;
 		inStartTurnPlayer = true;
 		inTacticalView = false;

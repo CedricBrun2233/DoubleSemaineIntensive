@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private int mana;
     private int multiplier;
     [HideInInspector]
+    public GameObject[] GODices;
     public Dice[] dices;
     private List<Card> hand;
 
@@ -17,24 +18,14 @@ public class Player : MonoBehaviour
         score = 0;
         mana = 0;
         multiplier = 1;
+        GODices = new GameObject[3];
         dices = new Dice[3];
-        for(int i = 0; i < 3; i++)
-        {
-            dices[i] = new Dice();
-        }
         hand = new List<Card>();
     }
 
     public void AddMana(int value)
     {
         mana += value;
-    }
-    public void RollDice()
-    {
-        foreach (Dice dice in dices)
-        {
-            //dice.RollDice();
-        }
     }
 
     public int getScore()
