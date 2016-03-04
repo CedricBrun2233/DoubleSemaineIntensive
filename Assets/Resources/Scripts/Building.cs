@@ -18,7 +18,7 @@ public class Building : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (name != "RDS")
+        if (name != "RDC")
         {
             if (collision.gameObject.tag == "Ground")
             {
@@ -35,7 +35,6 @@ public class Building : MonoBehaviour
 
     public void bump()
     {
-        rb.isKinematic = false;
         StartCoroutine("checkStill");
     }
 
@@ -53,37 +52,16 @@ public class Building : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         position = Vector3.zero;
-       /* while (position != transform.position)
-        {
-            position = transform.position;
-            yield return new WaitForSeconds(10f);
-        }*/
         while(rb.velocity != Vector3.zero)
         {
             yield return new WaitForSeconds(1f);
         }
-        if (name == "RDS")
+        if (name == "RDC")
         {
             if (Vector3.Distance(transform.position, initialPosition) > 1)
             {
                 Destroy(gameObject, 2f);
             }
         }
-        //rb.isKinematic = true;
-       // yield return null;
-    }
-
-
-    void destruct()
-    {
-        /*Collider[] co = Physics.OverlapSphere(transform.position, 4f);
-        foreach (Collider currentCo in co)
-        {
-            if (currentCo.tag == "needPhysics")
-            {
-                currentCo.GetComponent<Building>().bump();
-            }
-        }*/
-        Destroy(gameObject);
     }
 }

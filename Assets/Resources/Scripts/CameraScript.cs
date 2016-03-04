@@ -218,7 +218,6 @@ public class CameraScript : MonoBehaviour
             farDices[0] = dices[0];
             farDices[1] = dices[2];
         }
-        Debug.Log("trouvé les dés");
         GetPosition(farDices);
     }
 
