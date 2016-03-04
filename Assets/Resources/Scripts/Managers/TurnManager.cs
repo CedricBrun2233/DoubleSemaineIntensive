@@ -91,6 +91,8 @@ public class TurnManager : MonoBehaviour
 
     void addCameraForPlayer()
     {
+
+
         playerGameObject = Instantiate(Resources.Load("GA/Prefabs/MapCenter", typeof(GameObject))) as GameObject;
         playerGameObject.transform.position = Vector3.zero;
         globalCamera.enabled = false;
@@ -109,10 +111,10 @@ public class TurnManager : MonoBehaviour
         currentPlayer.AddMana(valor);
         Debug.Log(valor);
         GameObject camera = playerGameObject.transform.GetChild(0).gameObject;
-        camera.transform.parent = null;
         camera.GetComponent<TestCamera>().enabled = true;
         camera.GetComponent<TestCamera>().dices = camera.GetComponent<CameraScript>().dices;
         camera.GetComponent<CameraScript>().enabled = false;
+
     }
 
     IEnumerator Turn()
@@ -134,9 +136,17 @@ public class TurnManager : MonoBehaviour
         else
             turnPlayer2Ended = true;
 
+
+        killCamera();
         currentPlayer.EndOfTurn();
         EndOfTurn();
         yield return null;
+    }
+
+    void killCamera()
+    {
+        globalCamera.enabled = true;
+        Destroy(playerGameObject);
     }
 
     public void SelectCard(Card card)

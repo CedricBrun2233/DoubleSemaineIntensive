@@ -73,15 +73,7 @@ public class Dice : MonoBehaviour {
         foreach(Collider currentCo in co)
         {
             if (currentCo.tag == "needPhysics")
-            {
-                /*Transform go = currentCo.transform.parent;
-
-                for(int i = 0; i < go.childCount;i++)
-                {
-                    go.GetChild(i).GetComponent<Building>().bump();
-                    Debug.Log("lol");
-                }*/
-               
+            {               
                 currentCo.GetComponent<Building>().bump();
                 currentCo.GetComponent<Building>().changeWeight();
                 currentCo.GetComponent<Rigidbody>().AddExplosionForce(350f*100, transform.position, 15f);

@@ -13,7 +13,7 @@ public class Building : MonoBehaviour
         initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.mass *= 100;
-        rb.Sleep();
+        //rb.Sleep();
     }
 
     void OnCollisionEnter(Collision collision)
