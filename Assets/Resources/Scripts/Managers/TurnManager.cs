@@ -111,7 +111,57 @@ public class TurnManager : MonoBehaviour
         //Cast un Spell
         if(!turnPlayer2Ended)
         {
-            currentPlayer.Cast(card);
+            List<GameObject> targets = new List<GameObject>();
+            switch(card.name)
+            {
+                case "JamesBond":
+                    if (currentPlayer == player1)
+                    {
+                        targets.Add(player1.gameObject);
+                        targets.Add(player2.gameObject);
+                    }
+                    else
+                    {
+                        targets.Add(player2.gameObject);
+                        targets.Add(player1.gameObject);
+                    }
+                    break;
+                case "Seisme":
+                    if (currentPlayer == player1)
+                    {
+                        targets.Add(player1.dices[0].gameObject);
+                    }
+                    else
+                    {
+                        targets.Add(player2.dices[0].gameObject);
+                    }
+                    break;
+                case "BombeH":
+                    if (currentPlayer == player1)
+                    {
+                        targets.Add(player1.dices[0].gameObject);
+                    }
+                    else
+                    {
+                        targets.Add(player2.dices[0].gameObject);
+                    }
+                    break;
+                case "Tilt":
+                    if (currentPlayer == player1)
+                    {
+                        targets.Add(player1.dices[0].gameObject);
+                        targets.Add(player1.dices[1].gameObject);
+                        targets.Add(player1.dices[2].gameObject);
+                    }
+                    else
+                    {
+                        targets.Add(player2.dices[0].gameObject);
+                        targets.Add(player2.dices[1].gameObject);
+                        targets.Add(player2.dices[2].gameObject);
+                    }
+                    break;
+            }
+            currentPlayer.Cast(card, targets);
             currentPlayer.RemoveCardInHand(card);
         }
         //En Draft

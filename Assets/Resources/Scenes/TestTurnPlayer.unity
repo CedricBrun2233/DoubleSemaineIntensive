@@ -276,6 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8e64cdd74d38541b2d9b784615b368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   cardSelected: 0
 --- !u!114 &449022003
 MonoBehaviour:
@@ -289,8 +291,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: 0
-  UIHandPlayer1: {fileID: 1632475960}
-  UIHandPlayer2: {fileID: 632421884}
+  progressBarre: {fileID: 0}
+  pressAToContinue: {fileID: 0}
+  pressXToTacticalView: {fileID: 0}
+  pressXToBack: {fileID: 0}
+  pressYToShowHand: {fileID: 0}
+  pressYToCloseHand: {fileID: 0}
+  pressBToBack: {fileID: 0}
+  pressTriggertoShoot: {fileID: 0}
+  coneVise: {fileID: 0}
+  shoot: {fileID: 0}
+  animRightJoystickShoot: {fileID: 0}
+  score: {fileID: 0}
+  selectedCard: {fileID: 0}
+  UIHandActive: 0
+  UIInStartTurnPlayer: 0
+  UIInTacticalView: 0
+  UIInShootView: 0
+  UIDiceSended: 0
+  UIInSelectSpell: 0
+  UIInSelectDice: 0
+  UIInCastSpell: 0
 --- !u!114 &449022004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,17 +334,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aee96891693b1b449b764f9a0294015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingSelectCard: 0
-  progressBarre: {fileID: 0}
-  pressAToContinue: {fileID: 0}
-  pressXToTacticalView: {fileID: 0}
-  pressXToBack: {fileID: 0}
-  pressYToShowHand: {fileID: 0}
-  pressYToCloseHand: {fileID: 0}
-  pressBToBack: {fileID: 0}
-  shoot: {fileID: 0}
-  hand: {fileID: 0}
-  score: {fileID: 0}
+  handActive: 0
+  inStartTurnPlayer: 0
+  inTacticalView: 0
+  inShootView: 0
+  diceSended: 0
+  inSelectSpell: 0
+  inSelectDice: 0
+  inCastSpell: 0
 --- !u!114 &449022006
 MonoBehaviour:
   m_ObjectHideFlags: 0
