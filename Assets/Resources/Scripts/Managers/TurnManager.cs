@@ -58,6 +58,7 @@ public class TurnManager : MonoBehaviour
 
     public void EndOfTurn()
     {
+        killCamera();
         if (currentPlayer == player1)
         {
             currentPlayer = player2;
@@ -134,14 +135,21 @@ public class TurnManager : MonoBehaviour
         }*/
                   //Selection du Spell a lancer
         cardSelected = false;
+        currentPlayer.EndOfTurn();
         if (currentPlayer == player1)
             turnPlayer1Ended = true;
         else
             turnPlayer2Ended = true;
+
+        EndOfTurn();
     }
 
     void killCamera()
     {
+        foreach(GameObject dice in currentPlayer.GODices)
+        {
+            Destroy(dice);
+        }
         globalCamera.enabled = true;
         Destroy(playerGameObject);
     }
@@ -235,7 +243,7 @@ public class TurnManager : MonoBehaviour
             //cardsInDraft.Add ();
         }
         Ui_Manager.Instance.SetDraftCardNumber(5);
-        Ui_Manager.Instance.GoToState(UiState.Draft);
+        Ui_Manager.Instance.GoToState(UiState.Draft);/*
         while (player1.getHandSize() < 5 && player2.getHandSize() < 5)
         {
             while (!cardSelected)
@@ -248,7 +256,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("SizeHandP1 : " + player1.getHandSize());
             Debug.Log("SizeHandP2 : " + player2.getHandSize());
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         globalTurnEnded = true;
         yield return null;
     }
@@ -257,6 +265,7 @@ public class TurnManager : MonoBehaviour
     {
         if (turnPlayer2Ended)
         {
+            Debug.Log("ds,rrrr");
             StartCoroutine(Game());
             globalTurnEnded = false;
             turnPlayer1Ended = false;

@@ -63,4 +63,9 @@ public class CameraUiHandler : MonoBehaviour
 		transform.DOMove (activePoint.position, 1.5f).SetEase (Ease.InOutSine);
 		transform.DORotate (targetRotation, 1.5f).SetEase (Ease.InOutSine);
 	}
+
+    public void LaunchGame()
+    {
+        Application.LoadLevel(1);
+    }
 }

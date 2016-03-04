@@ -28,7 +28,8 @@ public class CurvedText : Text
 	private float _scaleFactor = -1;
 	private float _circumference = -1;
 
-	protected override void OnValidate ()
+#if UNITY_EDITOR
+    protected override void OnValidate ()
 	{
 		base.OnValidate ();
 		if (radius <= 0.0f) {
@@ -41,8 +42,8 @@ public class CurvedText : Text
 			curvature = (int)(Mathf.Sign (curvature) * 1);
 		}
 	}
-
-	protected override void OnPopulateMesh (VertexHelper vh)
+#endif
+    protected override void OnPopulateMesh (VertexHelper vh)
 	{	
 		base.OnPopulateMesh (vh);
 
