@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Building : MonoBehaviour
 {
-
-    Vector3 position;
+    
     Rigidbody rb;
     Vector3 initialPosition;
     bool destroyable = false;
@@ -54,7 +53,6 @@ public class Building : MonoBehaviour
     public IEnumerator checkStill()
     {
         yield return new WaitForSeconds(0.5f);
-        position = Vector3.zero;
         while(rb.velocity != Vector3.zero)
         {
             yield return new WaitForSeconds(1f);

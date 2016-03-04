@@ -19,4 +19,9 @@ public class JamesBond : Support
         caster.GetHand().Add(cardPlayer2);
         target.GetHand().Remove(cardPlayer2);
     }
+
+    public override Card Copy()
+    {
+        return new JamesBond(energy);
+    }
 }
