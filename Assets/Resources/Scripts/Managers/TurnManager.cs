@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour
     private bool globalTurnPlayer2Ended;
     public bool cardSelected;
 
-    private Player currentPlayer;
+    public Player currentPlayer;
 
     public Camera globalCamera;
     [HideInInspector]
