@@ -11,8 +11,8 @@ public class InputManager : MonoBehaviour
 {
 	static InputManager instance;
 
-	private Card cardPreSelected;
-	private Dice dicePreSelected;
+	public Card cardPreSelected;
+	public Dice dicePreSelected;
 
 	public bool handActive;
 	public bool inStartTurnPlayer;
@@ -38,8 +38,6 @@ public class InputManager : MonoBehaviour
 		inSelectDice = false;
 		inCastSpell = false;
 
-		Ui_Manager.Instance.GoToState (UiState.Positioning);
-
 		//ToSelectDice&Card
 		cardPreSelected = null;
 		dicePreSelected = null;
@@ -55,6 +53,8 @@ public class InputManager : MonoBehaviour
 
 	public void OnPressButtonA ()
 	{
+
+
 		if (handActive || inTacticalView) {
 			return;
 		}

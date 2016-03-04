@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -27,8 +29,7 @@ public enum UiOptions
 
 public enum UiState
 {
-	DraftJ1 = UiElement.YShowHand | UiElement.PressBtnPanel | UiElement.DraftCardPanel,
-	DraftJ2 = UiElement.YShowHand | UiElement.PressBtnPanel | UiElement.DraftCardPanel,
+	Draft = UiElement.YShowHand | UiElement.PressBtnPanel | UiElement.DraftCardPanel,
 	HandJ1 = UiElement.HandPlayer1 | UiElement.YShowHand | UiElement.PressBtnPanel,
 	HandJ2 = UiElement.HandPlayer2 | UiElement.YShowHand | UiElement.PressBtnPanel,
 	Positioning = UiElement.YShowHand | UiElement.XShowTacticView | UiElement.PressBtnPanel | UiElement.PhaseTitle,
@@ -47,6 +48,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 			return m_state;
 		}
 	}
+
+	private EventSystem m_system;
 
 	#region Panels
 
@@ -88,6 +91,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	void Start ()
 	{
 		m_mainSlider.SetActive (true);
+		m_system = GameObject.FindObjectOfType<EventSystem> ();
 	}
 	
 	// Update is called once per frame
@@ -101,11 +105,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		Debug.Log ("[UI Manager] go to state : " + state);
 		m_state = state;
 		switch (state) {
-		case UiState.DraftJ1:
+		case UiState.Draft:
 			OnDraftJ1 ();
-			break;
-		case UiState.DraftJ2:
-			OnDraftJ2 ();
 			break;
 		case UiState.HandJ1:
 			OnHandJ1 ();
@@ -132,6 +133,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 			break;
 		}
 	}
+
+	#region State function
 
 	private void hideAll ()
 	{
@@ -162,6 +165,27 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 100;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = 70;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 70;
+		m_system.SetSelectedGameObject (m_draftCardPanel.transform.GetChild (0).gameObject);
+
+	}
+
+	public void SetDraftCardNumber (int number)
+	{
+		for (int i = number; i < m_draftCardPanel.transform.childCount; i++) {
+			m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
+		}
+	}
+
+	public void setDraftCard (List<Card> draftCards)
+	{
+		for (int i = 0; i < 10; i++) {
+			if (i < draftCards.Count) {
+				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
+				m_draftCardPanel.transform.GetChild (i).GetComponent<DraftCardUI> ().ActiveCard = draftCards [i];
+			} else {
+				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
+			}
+		}
 	}
 
 	private void OnDraftJ2 ()
@@ -284,4 +308,11 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		});
 	}
 
+	#endregion
+
+	public void DraftCardSelect (DraftCardUI cardToAdd)
+	{
+		InputManager.GetInstance ().cardPreSelected = cardToAdd.ActiveCard;
+		TurnManager.instance.cardSelected = true;
+	}
 }
