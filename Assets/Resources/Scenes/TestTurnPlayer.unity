@@ -96,7 +96,6 @@ GameObject:
   - 33: {fileID: 98278249}
   - 65: {fileID: 98278248}
   - 23: {fileID: 98278247}
-  - 114: {fileID: 98278251}
   m_Layer: 0
   m_Name: Card
   m_TagString: Card
@@ -161,17 +160,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!114 &98278251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 98278246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e8f5d89b78be54b92c03ee571fa26b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &150282679
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +461,7 @@ GameObject:
   - 114: {fileID: 449022004}
   - 114: {fileID: 449022002}
   - 114: {fileID: 449022003}
+  - 114: {fileID: 449022008}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -574,6 +563,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &449022008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449022001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7262270dda94bbc4db79748c24a4d36b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BombeHRadius: 0
+  BombeHEnergyCoast: 0
+  BombeHForceExplosion: 0
+  TiltEnergyCoast: 0
+  JamesBondEnergyCoast: 0
+  VortexRadius: 0
+  VortexEnergyCoast: 0
+  VortexForceExplosion: 0
+  SeismeEnergyCoast: 0
+  SeismeForceExplosion: 0
+  ExcaliburRadius: 0
+  ExcaliburEnergyCoast: 0
+  ExcaliburForceExplosion: 0
+  ExterminateRadius: 0
+  ExterminateEnergyCoast: 0
+  ExterminateForceExplosion: 0
 --- !u!1001 &493362680
 Prefab:
   m_ObjectHideFlags: 0

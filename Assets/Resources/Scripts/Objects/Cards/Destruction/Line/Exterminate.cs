@@ -6,7 +6,7 @@ public class Exterminate : Destruction
 {
     public float radius;
 
-    public Exterminate(float radius, int energy, string name, int force) : base (energy, name, force)
+    public Exterminate(float radius, int energy, float force) : base (energy, "Exterminate", force)
     {
         this.radius = radius;
     }
@@ -14,5 +14,10 @@ public class Exterminate : Destruction
     public override void Cast(List<GameObject> targets)
     {
 
+    }
+
+    public override Card Copy()
+    {
+        return new Exterminate(radius, energy, force);
     }
 }

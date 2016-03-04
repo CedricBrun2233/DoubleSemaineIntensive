@@ -33,10 +33,6 @@ public class Dice : MonoBehaviour {
         {
             Vortex(gameObject);
         }
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Seisme();
-        }
         if(Input.GetKeyDown(KeyCode.T))
         {
             Laser();
@@ -82,71 +78,6 @@ public class Dice : MonoBehaviour {
     void Laser()
     {
 
-    }
-    void Seisme()
-    {
-        StartCoroutine("yollohSeisme");
-    }
-
-    IEnumerator yollohSeisme()
-    {
-
-        GameObject ground = GameObject.FindGameObjectWithTag("Ground");
-        ground.transform.position -= Vector3.up / 10;
-        int up = 1;
-        while(up != 10)
-        {
-            ground.transform.position += Vector3.up / 100;
-            up++;
-            yield return new WaitForSeconds(0.05f);
-        }
-
-
-        XInput.instance.useVibe(0, 0.5f, 1, 1);
-        yield return null;
-    }
-
-    void Vortex(GameObject dice)
-    {
-        Collider[] co = Physics.OverlapSphere(dice.transform.position, 15f);
-        foreach (Collider currentCo in co)
-        {
-            if (currentCo.tag == "needPhysics")
-            {
-                currentCo.GetComponent<Building>().bump();
-                currentCo.GetComponent<Building>().changeWeight();
-                currentCo.GetComponent<Rigidbody>().AddExplosionForce(-350f * 400 * multiplierSpell, transform.position, 15f);
-            }
-        }
-        XInput.instance.useVibe(0, 0.5f, 1, 1);
-        dice.GetComponent<Rigidbody>().AddExplosionForce(450f, dice.transform.position, 15f);
-    }
-
-    void Badaboum(GameObject dice)
-    {
-        Collider[] co = Physics.OverlapSphere(dice.transform.position, 15f);
-        foreach(Collider currentCo in co)
-        {
-            if (currentCo.tag == "needPhysics")
-            {               
-                currentCo.GetComponent<Building>().bump();
-                currentCo.GetComponent<Building>().changeWeight();
-                currentCo.GetComponent<Rigidbody>().AddExplosionForce(350f*100*multiplierSpell, transform.position, 15f);
-            }
-        }
-        XInput.instance.useVibe(0, 0.5f, 1, 1);
-        dice.GetComponent<Rigidbody>().AddExplosionForce(450f, dice.transform.position, 15f);
-    }
-
-    void Tilt(GameObject dice)
-    {
-        float X = Random.Range(-1f, 1f);
-        float Z = Random.Range(-1f, 1f);
-        Vector3 displacment = new Vector3(X, 0, Z);
-        displacment.Normalize();
-        dice.GetComponent<Rigidbody>().AddForce((displacment+Vector3.up)*200*multiplierSpell);
-        Debug.Log(displacment);
-        XInput.instance.useVibe(0, 0.5f, 1, 1);
     }
 
     void OnCollisionEnter(Collision col)

@@ -24,4 +24,5 @@ public abstract class Card : MonoBehaviour
     }
 
     public abstract void Cast(List<GameObject> targets);
+    public abstract Card Copy();
 }
