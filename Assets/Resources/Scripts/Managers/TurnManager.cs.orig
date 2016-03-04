@@ -79,6 +79,13 @@ public class TurnManager : MonoBehaviour
     public IEnumerator Game()
     {
         yield return new WaitForEndOfFrame();
+<<<<<<< HEAD
+       // ChangeUI();
+        StartCoroutine(Turn());
+        while (!turnPlayer1Ended)
+            yield return new WaitForEndOfFrame();
+       // ChangeUI();
+=======
         Debug.Log("GLobalTurn");
         StartCoroutine(GlobalTurn());
         while (!globalTurnEnded)
@@ -88,7 +95,7 @@ public class TurnManager : MonoBehaviour
         while (!turnPlayer1Ended)
             yield return new WaitForEndOfFrame();
         Debug.Log("TurnP2");
-
+>>>>>>> e4fb3ee9d3ae83f5cc5e1dce53aaeb7bf66754dc
         StartCoroutine(Turn());
         while (!turnPlayer2Ended)
             yield return new WaitForEndOfFrame();
@@ -230,6 +237,22 @@ public class TurnManager : MonoBehaviour
             cardsInDraft.Remove(card);
         }
     }
+<<<<<<< HEAD
+
+   /* public void ChangeUI()
+    {
+        if (currentPlayer == player1)
+        {
+            UIManager.GetInstance().currentPlayer = 1;
+        }
+        else
+        {
+            UIManager.GetInstance().currentPlayer = 2;
+        }
+    }*/
+=======
+    
+>>>>>>> e4fb3ee9d3ae83f5cc5e1dce53aaeb7bf66754dc
 
     IEnumerator GlobalTurn()
     {
