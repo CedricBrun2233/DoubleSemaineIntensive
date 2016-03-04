@@ -12,6 +12,7 @@ public class Building : MonoBehaviour
     {
         initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
+        rb.mass *= 100;
         rb.Sleep();
     }
 
@@ -45,7 +46,7 @@ public class Building : MonoBehaviour
 
     void reallyChangeWeight()
     {
-        rb.mass -= 0.5f;
+        rb.mass -= 50f;
     }
 
     public IEnumerator checkStill()
@@ -68,7 +69,7 @@ public class Building : MonoBehaviour
                 Destroy(gameObject, 2f);
             }
         }
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
        // yield return null;
     }
 

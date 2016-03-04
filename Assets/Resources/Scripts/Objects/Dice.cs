@@ -84,7 +84,7 @@ public class Dice : MonoBehaviour {
                
                 currentCo.GetComponent<Building>().bump();
                 currentCo.GetComponent<Building>().changeWeight();
-                currentCo.GetComponent<Rigidbody>().AddExplosionForce(450f, transform.position, 15f);
+                currentCo.GetComponent<Rigidbody>().AddExplosionForce(350f*100, transform.position, 15f);
                 
             }
         }
