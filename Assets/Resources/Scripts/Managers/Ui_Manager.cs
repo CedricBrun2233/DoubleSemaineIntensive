@@ -3,13 +3,35 @@ using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;
 
+public enum UiElement
+{
+	RessourcesPanel = 0x01,
+	YShowHand = 0x02,
+	YShowDice = 0x03,
+	XShowTacticView = 0x04,
+	XShowBasicView = 0x05,
+	PressBtnPanel = 0x06,
+	PhaseTitle = 0x07,
+	DraftCardPanel = 0x08,
+	HandPlayer1 = 0x09,
+	HandPlayer2 = 0x10,
+	BToBack = 0x11,
+}
+
+public enum UiOptions
+{
+	Additive,
+	Default,
+	ForceHide,
+}
+
 public enum UiState
 {
-	DraftJ1,
-	DraftJ2,
-	HandJ1,
-	HandJ2,
-	Positioning,
+	DraftJ1 = UiElement.YShowHand | UiElement.PressBtnPanel | UiElement.DraftCardPanel,
+	DraftJ2 = UiElement.YShowHand | UiElement.PressBtnPanel | UiElement.DraftCardPanel,
+	HandJ1 = UiElement.HandPlayer1 | UiElement.YShowHand | UiElement.PressBtnPanel,
+	HandJ2 = UiElement.HandPlayer2 | UiElement.YShowHand | UiElement.PressBtnPanel,
+	Positioning = UiElement.YShowHand | UiElement.XShowTacticView | UiElement.PressBtnPanel | UiElement.PhaseTitle,
 	Tactical,
 	Throw,
 	SpellSelect,
