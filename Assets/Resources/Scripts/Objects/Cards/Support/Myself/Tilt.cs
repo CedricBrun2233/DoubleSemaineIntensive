@@ -26,6 +26,6 @@ public class Tilt : Support
 
     public override Card Copy()
     {
-        return new Tilt(energy);
+        return new Tilt(energy, force);
     }
 }
