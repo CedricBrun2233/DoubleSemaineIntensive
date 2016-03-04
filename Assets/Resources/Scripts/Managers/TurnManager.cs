@@ -190,6 +190,16 @@ public class TurnManager : MonoBehaviour
                         targets.Add(player2.dices[0].gameObject);
                     }
                     break;
+                case "Vortex":
+                    if (currentPlayer == player1)
+                    {
+                        targets.Add(player1.dices[0].gameObject);
+                    }
+                    else
+                    {
+                        targets.Add(player2.dices[0].gameObject);
+                    }
+                    break;
                 case "Tilt":
                     if (currentPlayer == player1)
                     {
