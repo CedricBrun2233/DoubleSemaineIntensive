@@ -52,6 +52,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	private GameObject m_handPlayer1;
 	[SerializeField]
 	private GameObject m_handPlayer2;
+	[SerializeField]
+	private GameObject m_bToBack;
 
 	#endregion
 
@@ -123,6 +125,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		m_xShowTacticView.SetActive (false);
 		m_yShowDice.SetActive (false);
 		m_yShowHand.SetActive (false);
+		m_bToBack.SetActive (false);
 	}
 
 	private void OnDraftJ1 ()
@@ -210,6 +213,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		m_yShowHand.SetActive (true);
 		m_xShowTacticView.SetActive (true);
 		m_pressBtnPanel.SetActive (true);
+		m_bToBack.SetActive (true);
 
 		Color alpha = m_phaseTitle.GetComponent<Image> ().color;
 		alpha.a = 0;
