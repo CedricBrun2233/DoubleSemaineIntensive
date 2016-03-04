@@ -25,7 +25,8 @@ public class TurnManager : MonoBehaviour
     private Player currentPlayer;
 
     public Camera globalCamera;
-    private GameObject playerGameObject;
+    [HideInInspector]
+    public GameObject playerGameObject;
 
     void Awake ()
     {
@@ -90,6 +91,8 @@ public class TurnManager : MonoBehaviour
 
     void addCameraForPlayer()
     {
+
+
         playerGameObject = Instantiate(Resources.Load("GA/Prefabs/MapCenter", typeof(GameObject))) as GameObject;
         playerGameObject.transform.position = Vector3.zero;
         globalCamera.enabled = false;
@@ -108,25 +111,24 @@ public class TurnManager : MonoBehaviour
         currentPlayer.AddMana(valor);
         Debug.Log(valor);
         GameObject camera = playerGameObject.transform.GetChild(0).gameObject;
-        camera.transform.parent = null;
         camera.GetComponent<TestCamera>().enabled = true;
         camera.GetComponent<TestCamera>().dices = camera.GetComponent<CameraScript>().dices;
         camera.GetComponent<CameraScript>().enabled = false;
+
     }
 
     IEnumerator Turn()
     {
         addCameraForPlayer();
-
-        //RollDice();
+        
         while(dicesValor.Count !=3) {
             yield return new WaitForEndOfFrame();
         }
-        valorOk();
+        valorOk();/*
         while (!cardSelected)
         {
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         //Selection du Spell a lancer
         cardSelected = false;
         if (currentPlayer == player1)
@@ -134,9 +136,17 @@ public class TurnManager : MonoBehaviour
         else
             turnPlayer2Ended = true;
 
+
+        killCamera();
         currentPlayer.EndOfTurn();
         EndOfTurn();
         yield return null;
+    }
+
+    void killCamera()
+    {
+        globalCamera.enabled = true;
+        Destroy(playerGameObject);
     }
 
     public void SelectCard(Card card)
@@ -176,7 +186,7 @@ public class TurnManager : MonoBehaviour
         {
             currentPlayer = player2;
         }
-
+        /*
         while(player1.getHandSize() < 5 && player2.getHandSize() < 5)
         {
             while (!cardSelected)
@@ -186,11 +196,12 @@ public class TurnManager : MonoBehaviour
                 currentPlayer = player2;
             else
                 currentPlayer = player1;
-            Debug.Log(player1.getHandSize());
-            Debug.Log(player2.getHandSize());
+            Debug.Log("SizeHandP1 : " + player1.getHandSize());
+            Debug.Log("SizeHandP2 : " + player2.getHandSize());
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         globalTurnEnded = true;
+        yield return null;
     }
 
     void Update()
