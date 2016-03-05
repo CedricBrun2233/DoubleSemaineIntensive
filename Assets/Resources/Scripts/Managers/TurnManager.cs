@@ -223,8 +223,10 @@ public class TurnManager : MonoBehaviour
 		for (int i = 0; i < nbCard; i++) {
 			cardsInDraft.Add (CardManager.GetInstance ().GetRandomCard ());
 		}
+
 		Ui_Manager.Instance.setDraftCard (cardsInDraft);
 		Ui_Manager.Instance.GoToState (UiState.Draft);
+		InputManager.GetInstance ().inDraft = true;
 		while (player1.getHandSize () < 5 || player2.getHandSize () < 5) {
 			//we wait for the card to be selected
 			yield return new WaitForCardSelected ();
@@ -238,14 +240,13 @@ public class TurnManager : MonoBehaviour
 				currentPlayer = player1;
 				Ui_Manager.Instance.DraftTogglePlayer (1);
 			}
-			
-
 
 			Debug.Log ("SizeHandP1 : " + player1.getHandSize ());
 			Debug.Log ("SizeHandP2 : " + player2.getHandSize ());
 			yield return new WaitForEndOfFrame ();
 		}
 		globalTurnEnded = true;
+		InputManager.GetInstance ().inDraft = false;
 		yield return null;
 	}
 

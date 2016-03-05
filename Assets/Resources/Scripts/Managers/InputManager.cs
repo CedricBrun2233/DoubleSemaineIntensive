@@ -38,6 +38,7 @@ public class InputManager : MonoBehaviour
 		inSelectSpell = false;
 		inSelectDice = false;
 		inCastSpell = false;
+		inDraft = false;
 
 		//ToSelectDice&Card
 		cardPreSelected = null;
@@ -138,16 +139,21 @@ public class InputManager : MonoBehaviour
 			handActive = false;
 			if (inStartTurnPlayer)
 				Ui_Manager.Instance.GoToState (UiState.Positioning);
-			else
+			else if (inShootView)
 				Ui_Manager.Instance.GoToState (UiState.Throw);
+			else if (inDraft)
+				Ui_Manager.Instance.GoToState (UiState.Draft);
 			return;
 		}
-		if (inStartTurnPlayer || inShootView) {
-			handActive = true;
-			if (TurnManager.GetInstance ().currentPlayer == TurnManager.GetInstance ().player1)
+		if (inStartTurnPlayer || inShootView || inDraft) {
+			if (TurnManager.GetInstance ().currentPlayer == TurnManager.GetInstance ().player1 && TurnManager.GetInstance ().player1.getHandSize () > 0) {
 				Ui_Manager.Instance.GoToState (UiState.HandJ1);
-			else
+				handActive = true;
+			}
+			if (TurnManager.GetInstance ().player2.getHandSize () > 0 && TurnManager.GetInstance ().currentPlayer == TurnManager.GetInstance ().player2) {
 				Ui_Manager.Instance.GoToState (UiState.HandJ2);
+				handActive = true;
+			}
 		}
 	}
 
