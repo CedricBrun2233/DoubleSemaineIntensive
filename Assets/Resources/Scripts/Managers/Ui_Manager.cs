@@ -50,6 +50,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	}
 
 	private EventSystem m_system;
+	private TurnManager m_turnManager;
+	private InputManager m_inputManager;
 
 	#region Panels
 
@@ -92,6 +94,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	{
 		m_mainSlider.SetActive (true);
 		m_system = GameObject.FindObjectOfType<EventSystem> ();
+		m_turnManager = TurnManager.GetInstance ();
+		m_inputManager = InputManager.GetInstance ();
 	}
 	
 	// Update is called once per frame
@@ -178,9 +182,10 @@ public class Ui_Manager : Singleton<Ui_Manager>
 
 	public void setDraftCard (List<Card> draftCards)
 	{
+		Debug.Log (draftCards.Count);
 		for (int i = 0; i < 10; i++) {
 			if (i < draftCards.Count) {
-				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
+				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (true);
 				m_draftCardPanel.transform.GetChild (i).GetComponent<DraftCardUI> ().ActiveCard = draftCards [i];
 			} else {
 				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
@@ -196,10 +201,10 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		m_pressBtnPanel.SetActive (true);
 		m_draftCardPanel.SetActive (true);
 
-		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = 70;
-		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 70;
-		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = 100;
-		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 100;
+		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (m_turnManager.currentPlayer == m_turnManager.player2) ? 70 : 100;
+		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (m_turnManager.currentPlayer == m_turnManager.player2) ? 70 : 100;
+		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (m_turnManager.currentPlayer == m_turnManager.player1) ? 100 : 70;
+		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (m_turnManager.currentPlayer == m_turnManager.player1) ? 100 : 70;
 	}
 
 	private void OnHandJ1 ()
@@ -312,7 +317,18 @@ public class Ui_Manager : Singleton<Ui_Manager>
 
 	public void DraftCardSelect (DraftCardUI cardToAdd)
 	{
-		InputManager.GetInstance ().cardPreSelected = cardToAdd.ActiveCard;
-		TurnManager.instance.cardSelected = true;
+		m_inputManager.cardPreSelected = cardToAdd.ActiveCard;
+		WaitForCardSelected.cardSelected = true;
+		cardToAdd.gameObject.SetActive (false);
+		cardToAdd.transform.SetAsLastSibling ();
+		m_system.SetSelectedGameObject (m_draftCardPanel.transform.GetChild (0).gameObject);
+	}
+
+	public void DraftTogglePlayer (int player)
+	{
+		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (player == 2) ? 70 : 100;
+		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (player == 2) ? 70 : 100;
+		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (player == 1) ? 70 : 100;
+		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (player == 1) ? 70 : 100;
 	}
 }

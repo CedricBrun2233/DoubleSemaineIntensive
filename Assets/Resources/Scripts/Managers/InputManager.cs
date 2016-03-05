@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
 	public bool inSelectSpell;
 	public bool inSelectDice;
 	public bool inCastSpell;
+	public bool inDraft;
 
 	void Awake ()
 	{
@@ -30,7 +31,7 @@ public class InputManager : MonoBehaviour
 
 		//To UI
 		handActive = false;
-		inStartTurnPlayer = true;
+		inStartTurnPlayer = false;
 		inTacticalView = false;
 		inShootView = false;
 		diceSended = false;

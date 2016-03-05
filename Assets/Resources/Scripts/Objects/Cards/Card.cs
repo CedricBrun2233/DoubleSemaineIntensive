@@ -2,27 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class Card : MonoBehaviour
+public abstract class Card //: MonoBehaviour
 {
-    protected string cardName;
-    protected int energy;
+	public string name {
+		get {
+			return cardName;
+		}
+	}
 
-    public Card(int energy, string name)
-    {
-        this.energy = energy;
-        cardName = name;
-    }
+	protected string cardName;
+	protected int energy;
 
-    public string GetName()
-    {
-        return cardName;
-    }
+	public Sprite Image {
+		get {
+			return m_image;
+		}
+	}
 
-    public int GetEnergy()
-    {
-        return energy;
-    }
+	protected Sprite m_image;
 
-    public abstract void Cast(List<GameObject> targets);
-    public abstract Card Copy();
+	public Card (int energy, string name)
+	{
+		this.energy = energy;
+		cardName = name;
+	}
+
+	public Card (int energy, string name, Sprite image)
+	{
+		this.energy = energy;
+		this.m_image = image;
+		cardName = name;
+	}
+
+	public string GetName ()
+	{
+		return cardName;
+	}
+
+	public int GetEnergy ()
+	{
+		return energy;
+	}
+
+	public abstract void Cast (List<GameObject> targets);
+
+	public abstract Card Copy ();
 }
