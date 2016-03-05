@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Support : Card
+public class Support : Card
 {
-    public Support(int energy, string name) : base(energy, name)
-    {
+    private Dice target;
 
+    public Support(int energy, string name, Dice target) : base(energy, name)
+    {
+        this.target = target;
     }
 }
