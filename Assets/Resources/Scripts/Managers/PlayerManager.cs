@@ -7,16 +7,12 @@ public class PlayerManager : MonoBehaviour
 
     private Player player1;
     private Player player2;
-    private GameObject GOplayer1;
-    private GameObject GOplayer2;
 
     void Awake()
     {
         instance = this;
-        GOplayer1 = Instantiate(Resources.Load("Player")) as GameObject;
-        player1 = GOplayer1.GetComponent<Player>();
-        GOplayer2 = Instantiate(Resources.Load("Player")) as GameObject;
-        player2 = GOplayer2.GetComponent<Player>();
+        player1 = new Player();
+        player2 = new Player();
 
         StartCoroutine("InitializeManager");
     }
