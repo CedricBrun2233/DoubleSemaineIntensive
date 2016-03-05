@@ -2106,7 +2106,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 155668, guid: a60cfe4d343016347a508a91dc7f8a2c, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11448810, guid: a60cfe4d343016347a508a91dc7f8a2c, type: 2}
       propertyPath: m_HorizontalFit

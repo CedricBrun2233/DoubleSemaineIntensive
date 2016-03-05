@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player
+public class Player : MonoBehaviour
 {
     private int score;
     private int mana;
     private int multiplier;
     [HideInInspector]
     public Dice[] dices;
+    public GameObject[] GODices;
     private List<Card> hand;
 
     public Player()
@@ -17,24 +18,14 @@ public class Player
         score = 0;
         mana = 0;
         multiplier = 1;
+        GODices = new GameObject[3];
         dices = new Dice[3];
-        for(int i = 0; i < 3; i++)
-        {
-            dices[i] = new Dice();
-        }
         hand = new List<Card>();
     }
 
     public void AddMana(int value)
     {
         mana += value;
-    }
-    public void RollDice()
-    {
-        foreach (Dice dice in dices)
-        {
-            //dice.RollDice();
-        }
     }
 
     public int getScore()
@@ -68,8 +59,9 @@ public class Player
         return hand;
     }
 
-    public void Cast(Card card)
+    public void Cast(Card card, List<GameObject> targets)
     {
-
+        card.Cast(targets);
+        hand.Remove(card);
     }
 }
