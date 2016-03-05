@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class cubeLol : MonoBehaviour {
-
+public class cubeLol : MonoBehaviour
+{
     Rigidbody rb;
-    public float force = 10f;
+    public int force = 10;
     public AudioClip[] boing;
     AudioSource AS;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -44,18 +45,14 @@ public class cubeLol : MonoBehaviour {
     {
         if (col.gameObject.tag == "needPhysics")
         {
-
             GameObject dad = col.transform.parent.gameObject;
             List<GameObject> childs = new List<GameObject>();
             for (int i = 0; i < dad.transform.childCount; i++)
             {
                 childs.Add(dad.transform.GetChild(i).gameObject);
-            }
-            foreach (GameObject go in childs)
-            {
-                go.AddComponent<BoxCollider>();
-                go.AddComponent<Rigidbody>();
-                go.tag = "physicsAvailable";
+                childs[i].AddComponent<BoxCollider>();
+                childs[i].AddComponent<Rigidbody>();
+                childs[i].tag = "physicsAvailable";
             }
         }
     }
