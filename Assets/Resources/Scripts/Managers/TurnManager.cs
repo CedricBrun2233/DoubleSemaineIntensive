@@ -75,10 +75,10 @@ public class TurnManager : MonoBehaviour
 	public IEnumerator Game ()
 	{
 		yield return new WaitForEndOfFrame ();
-		Debug.Log ("GLobalTurn");
+		Debug.Log ("GLobalTurn");/*
 		StartCoroutine (GlobalTurn ());
 		while (!globalTurnEnded)
-			yield return new WaitForEndOfFrame ();
+			yield return new WaitForEndOfFrame ();*/
 		Debug.Log ("TUrnP1");
 		StartCoroutine (Turn ());
 		while (!turnPlayer1Ended)
@@ -134,11 +134,20 @@ public class TurnManager : MonoBehaviour
 			turnPlayer1Ended = true;
 		else
 			turnPlayer2Ended = true;
+        currentPlayer.EndOfTurn();
+
+        killCamera();
+
+        EndOfTurn();
 	}
 
 	void killCamera ()
 	{
-		globalCamera.enabled = true;
+        foreach (GameObject dice in currentPlayer.GODices)
+        {
+            Destroy(dice);
+        }
+        globalCamera.enabled = true;
 		Destroy (playerGameObject);
 	}
 
@@ -209,9 +218,9 @@ public class TurnManager : MonoBehaviour
 
 	IEnumerator GlobalTurn ()
 	{
-		player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
-		player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
-		player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
+		//player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
+		//player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
+		//player1.AddCardInHand (new BombeH (0, 0, 0, CardManager.GetInstance ().image));
 
 		int nbCard = (5 - player1.getHandSize ()) + (5 - player2.getHandSize ());
 
@@ -219,14 +228,14 @@ public class TurnManager : MonoBehaviour
 		if (player2.getScore () < player1.getScore ()) {
 			currentPlayer = player2;
 		}
-
+        /*
 		for (int i = 0; i < nbCard; i++) {
 			cardsInDraft.Add (CardManager.GetInstance ().GetRandomCard ());
-		}
+		}*/
 
 		Ui_Manager.Instance.setDraftCard (cardsInDraft);
 		Ui_Manager.Instance.GoToState (UiState.Draft);
-		InputManager.GetInstance ().inDraft = true;
+		InputManager.GetInstance ().inDraft = true;/*
 		while (player1.getHandSize () < 5 || player2.getHandSize () < 5) {
 			//we wait for the card to be selected
 			yield return new WaitForCardSelected ();
@@ -244,7 +253,7 @@ public class TurnManager : MonoBehaviour
 			Debug.Log ("SizeHandP1 : " + player1.getHandSize ());
 			Debug.Log ("SizeHandP2 : " + player2.getHandSize ());
 			yield return new WaitForEndOfFrame ();
-		}
+		}*/
 		globalTurnEnded = true;
 		InputManager.GetInstance ().inDraft = false;
 		yield return null;
@@ -252,11 +261,12 @@ public class TurnManager : MonoBehaviour
 
 	void Update ()
 	{
-		if (turnPlayer2Ended) {
-			StartCoroutine (Game ());
-			globalTurnEnded = false;
-			turnPlayer1Ended = false;
-			turnPlayer2Ended = false;
+		if (turnPlayer2Ended)
+        {
+            globalTurnEnded = false;
+            turnPlayer1Ended = false;
+            turnPlayer2Ended = false;
+            StartCoroutine (Game ());
 		}
 	}
 }

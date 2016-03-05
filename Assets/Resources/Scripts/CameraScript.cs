@@ -44,6 +44,7 @@ public class CameraScript : MonoBehaviour
             dices[i].transform.parent = transform;
             dices[i].transform.localPosition = new Vector3(-2f+(2f* i),-3,5.5f);
             dices[i].transform.rotation = UnityEngine.Random.rotation;
+            TurnManager.instance.currentPlayer.GODices[i] = dices[i];
         }
     }
 
