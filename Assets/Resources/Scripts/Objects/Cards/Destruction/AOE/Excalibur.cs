@@ -7,7 +7,7 @@ public class Excalibur : Destruction
 
     public float radius;
 
-    public Excalibur(float radius, int energy, string name, int force) : base (energy, name, force)
+    public Excalibur(float radius, int energy, float force) : base (energy, "Excalibur", force)
     {
         this.radius = radius;
     }
@@ -15,5 +15,10 @@ public class Excalibur : Destruction
     public override void Cast(List<GameObject> targets)
     {
 
+    }
+
+    public override Card Copy()
+    {
+        return new Excalibur(radius, energy, force);
     }
 }

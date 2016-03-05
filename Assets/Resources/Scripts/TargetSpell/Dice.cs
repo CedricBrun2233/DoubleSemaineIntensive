@@ -120,6 +120,7 @@ public class Dice : MonoBehaviour {
         }
         XInput.instance.useVibe(0, 0.5f, 1, 1);
         dice.GetComponent<Rigidbody>().AddExplosionForce(450f, dice.transform.position, 15f);
+        SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.explosion,0.5f,true);
     }
 
     void Badaboum(GameObject dice)
@@ -136,6 +137,7 @@ public class Dice : MonoBehaviour {
         }
         XInput.instance.useVibe(0, 0.5f, 1, 1);
         dice.GetComponent<Rigidbody>().AddExplosionForce(450f, dice.transform.position, 15f);
+        SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.explosion, 0.5f, true);
     }
 
     void Tilt(GameObject dice)

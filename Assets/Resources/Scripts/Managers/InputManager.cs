@@ -11,11 +11,8 @@ public class InputManager : MonoBehaviour
 {
 	static InputManager instance;
 
-	private Card cardPreSelected;
-	private Dice dicePreSelected;
-    
-	private bool globalTurnPlayer1;
-	private bool globalTurnPlayer2;
+	public Card cardPreSelected;
+	public Dice dicePreSelected;
 
 	public bool handActive;
 	public bool inStartTurnPlayer;
@@ -25,6 +22,7 @@ public class InputManager : MonoBehaviour
 	public bool inSelectSpell;
 	public bool inSelectDice;
 	public bool inCastSpell;
+	public bool inDraft;
 
 	void Awake ()
 	{
@@ -32,18 +30,14 @@ public class InputManager : MonoBehaviour
 		instance = this;
 
 		//To UI
-		globalTurnPlayer1 = false;
-		globalTurnPlayer2 = false;
 		handActive = false;
-		inStartTurnPlayer = true;
+		inStartTurnPlayer = false;
 		inTacticalView = false;
 		inShootView = false;
 		diceSended = false;
 		inSelectSpell = false;
 		inSelectDice = false;
 		inCastSpell = false;
-
-		Ui_Manager.Instance.GoToState (UiState.Positioning);
 
 		//ToSelectDice&Card
 		cardPreSelected = null;
@@ -60,6 +54,8 @@ public class InputManager : MonoBehaviour
 
 	public void OnPressButtonA ()
 	{
+
+
 		if (handActive || inTacticalView) {
 			return;
 		}

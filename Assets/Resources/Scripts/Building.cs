@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Building : MonoBehaviour
 {
-
-    Vector3 position;
+    
     Rigidbody rb;
     Vector3 initialPosition;
+    bool destroyable = false;
     // Use this for initialization
     void Awake()
     {
@@ -20,9 +20,11 @@ public class Building : MonoBehaviour
     {
         if (name != "RDC")
         {
-            if (collision.gameObject.tag == "Ground")
+            if (collision.gameObject.tag == "Ground" && destroyable == false)
             {
-                Destroy(gameObject, 2f);
+                SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.destruction[Random.Range(0, SoundManager.Instance.destruction.Length)], 0.5f, true);
+                Destroy(gameObject, 5.2f);
+                destroyable = true;
             }
         }
 
@@ -51,7 +53,6 @@ public class Building : MonoBehaviour
     public IEnumerator checkStill()
     {
         yield return new WaitForSeconds(0.5f);
-        position = Vector3.zero;
         while(rb.velocity != Vector3.zero)
         {
             yield return new WaitForSeconds(1f);
@@ -60,7 +61,8 @@ public class Building : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, initialPosition) > 1)
             {
-                Destroy(gameObject, 2f);
+                SoundManager.Instance.PlaySound(gameObject, SoundManager.Instance.destruction[Random.Range(0, SoundManager.Instance.destruction.Length)], 0.5f, true);
+                Destroy(gameObject, 5.2f);
             }
         }
     }
