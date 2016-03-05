@@ -115,12 +115,12 @@ MonoBehaviour:
   mapCenter: {fileID: 128120}
   dices: []
   speedRotationArround: 30
-  speedRotationVerticalScope: 20
-  speedRotationHorizontalScope: 20
+  speedRotationVerticalScope: 32
+  speedRotationHorizontalScope: 32
   forceThrow: 200
-  accuracyMin: 50
+  accuracyMin: 40
   accuracyMax: 15
-  multiplierForce: 1
+  multiplierForce: 5
 --- !u!114 &11470192
 MonoBehaviour:
   m_ObjectHideFlags: 1

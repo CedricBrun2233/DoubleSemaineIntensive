@@ -115,7 +115,7 @@ public class Dice : MonoBehaviour {
             {
                 currentCo.GetComponent<Building>().bump();
                 currentCo.GetComponent<Building>().changeWeight();
-                currentCo.GetComponent<Rigidbody>().AddExplosionForce(-350f * 400 * multiplierSpell, transform.position, 15f);
+                currentCo.GetComponent<Rigidbody>().AddExplosionForce(-350f * 150 * multiplierSpell, transform.position, 15f);
             }
         }
         XInput.instance.useVibe(0, 0.5f, 1, 1);
