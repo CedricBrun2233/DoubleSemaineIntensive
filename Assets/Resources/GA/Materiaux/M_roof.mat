@@ -151,7 +151,7 @@ Material:
       data:
         first:
           name: _Emission
-        second: 3
+        second: 0
     m_Colors:
       data:
         first:

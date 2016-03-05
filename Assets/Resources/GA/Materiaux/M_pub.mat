@@ -151,7 +151,7 @@ Material:
       data:
         first:
           name: _Emission
-        second: 0.6
+        second: 0.4
     m_Colors:
       data:
         first:
@@ -164,4 +164,4 @@ Material:
       data:
         first:
           name: _node_1917
-        second: {r: 0.2099899, g: 0, b: 0.7426471, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}

@@ -108,8 +108,8 @@ public class TurnManager : MonoBehaviour
 		currentPlayer.AddMana (valor);
 		Debug.Log (valor);
 		GameObject camera = playerGameObject.transform.GetChild (0).gameObject;
-		camera.GetComponent<TestCamera> ().enabled = true;
-		camera.GetComponent<TestCamera> ().dices = camera.GetComponent<CameraScript> ().dices;
+		//camera.GetComponent<TestCamera> ().enabled = true;
+		//camera.GetComponent<TestCamera> ().dices = camera.GetComponent<CameraScript> ().dices;
 		camera.GetComponent<CameraScript> ().enabled = false;
 
 	}
