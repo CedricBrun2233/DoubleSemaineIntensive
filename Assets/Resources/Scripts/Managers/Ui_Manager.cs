@@ -52,6 +52,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	private EventSystem m_system;
 	private TurnManager m_turnManager;
 	private InputManager m_inputManager;
+	private int m_cardSelectedId;
 
 	#region Panels
 
@@ -160,8 +161,8 @@ public class Ui_Manager : Singleton<Ui_Manager>
 	private void OnDraftJ1 ()
 	{
 		hideAll ();
-		//m_mainSlider.SetActive (true);
-		m_yShowHand.SetActive (true);
+		if (TurnManager.GetInstance ().currentPlayer.getHandSize () > 0)
+			m_yShowHand.SetActive (true);
 		m_pressBtnPanel.SetActive (true);
 		m_draftCardPanel.SetActive (true);
 
@@ -169,8 +170,7 @@ public class Ui_Manager : Singleton<Ui_Manager>
 		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 100;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = 70;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = 70;
-		m_system.SetSelectedGameObject (m_draftCardPanel.transform.GetChild (0).gameObject);
-
+		m_system.SetSelectedGameObject (m_draftCardPanel.transform.GetChild (m_cardSelectedId).gameObject);
 	}
 
 	public void SetDraftCardNumber (int number)
@@ -191,34 +191,27 @@ public class Ui_Manager : Singleton<Ui_Manager>
 				m_draftCardPanel.transform.GetChild (i).gameObject.SetActive (false);
 			}
 		}
-	}
-
-	private void OnDraftJ2 ()
-	{
-		hideAll ();
-		//m_mainSlider.SetActive (true);
-		m_yShowHand.SetActive (true);
-		m_pressBtnPanel.SetActive (true);
-		m_draftCardPanel.SetActive (true);
-
-		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (m_turnManager.currentPlayer == m_turnManager.player2) ? 70 : 100;
-		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (m_turnManager.currentPlayer == m_turnManager.player2) ? 70 : 100;
-		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (m_turnManager.currentPlayer == m_turnManager.player1) ? 100 : 70;
-		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (m_turnManager.currentPlayer == m_turnManager.player1) ? 100 : 70;
+		m_cardSelectedId = 0;
 	}
 
 	private void OnHandJ1 ()
 	{
+		UpdateHand (m_handPlayer1, TurnManager.GetInstance ().player1, 0);
 		m_yShowHand.SetActive (false);
 		m_pressBtnPanel.SetActive (false);
 		m_handPlayer1.SetActive (true);
+		m_cardSelectedId = m_system.currentSelectedGameObject.transform.GetSiblingIndex ();
+		m_system.SetSelectedGameObject (null);
 	}
 
 	private void OnHandJ2 ()
 	{
+		UpdateHand (m_handPlayer2, TurnManager.GetInstance ().player2, 1);
 		m_yShowHand.SetActive (false);
 		m_pressBtnPanel.SetActive (false);
 		m_handPlayer2.SetActive (true);
+		m_cardSelectedId = m_system.currentSelectedGameObject.transform.GetSiblingIndex ();
+		m_system.SetSelectedGameObject (null);
 	}
 
 	private void OnPositioning ()
@@ -326,9 +319,31 @@ public class Ui_Manager : Singleton<Ui_Manager>
 
 	public void DraftTogglePlayer (int player)
 	{
+		if (TurnManager.GetInstance ().currentPlayer.getHandSize () > 0) {
+			m_yShowHand.SetActive (true);
+		} else {
+			m_yShowHand.SetActive (false);
+		}
 		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (player == 2) ? 70 : 100;
 		m_mainSlider.transform.FindChild ("J1 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (player == 2) ? 70 : 100;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredWidth = (player == 1) ? 70 : 100;
 		m_mainSlider.transform.FindChild ("J2 Panel").FindChild ("Panel").GetComponent<LayoutElement> ().preferredHeight = (player == 1) ? 70 : 100;
 	}
+
+	private void UpdateHand (GameObject Hand, Player owner, int idPlayer)
+	{
+		Transform hand = Hand.transform.FindChild ("Panel");
+		List<Card> Cards = owner.GetHand ();
+		Debug.Log (Cards.Count);
+
+		for (int i = idPlayer; i < 5 + idPlayer; i++) {
+			if (i < Cards.Count + idPlayer) {
+				hand.GetChild (i).gameObject.SetActive (true);
+				hand.GetChild (i).gameObject.GetComponent<DraftCardUI> ().ActiveCard = Cards [i - idPlayer];
+			} else
+				hand.GetChild (i).gameObject.SetActive (false);
+		}
+	}
 }
+
+
