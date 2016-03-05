@@ -175,14 +175,7 @@ public class TurnManager : MonoBehaviour
                     }
                     break;
                 case "Seisme":
-                    if (currentPlayer == player1)
-                    {
-                        targets.Add(player1.dices[0].gameObject);
-                    }
-                    else
-                    {
-                        targets.Add(player2.dices[0].gameObject);
-                    }
+                    StartCoroutine("seismeDeMerde");
                     break;
                 case "BombeH":
                     if (currentPlayer == player1)

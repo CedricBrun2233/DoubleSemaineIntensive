@@ -22,12 +22,11 @@ public class BombeH : Destruction
             {
                 currentCo.GetComponent<Building>().bump();
                 currentCo.GetComponent<Building>().changeWeight();
-                currentCo.GetComponent<Rigidbody>().AddExplosionForce(350f * 100 * force, transform.position, 15f);
+                currentCo.GetComponent<Rigidbody>().AddExplosionForce(350 * 100 * force, dice.transform.position, 15);
             }
         }
         XInput.instance.useVibe(0, 0.5f, 1, 1);
-        dice.GetComponent<Rigidbody>().AddExplosionForce(450f, dice.transform.position, 15f);
-
+        dice.GetComponent<Rigidbody>().AddExplosionForce(450, dice.transform.position, 15);
     }
 
     public override Card Copy()

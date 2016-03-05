@@ -12,7 +12,7 @@ public class Seisme : Destruction
 
     public override void Cast(List<GameObject> targets)
     {
-        StartCoroutine("yollohSeisme");
+        StartCoroutine(DoSeisme());
     }
 
     public override Card Copy()
@@ -20,7 +20,7 @@ public class Seisme : Destruction
         return new Seisme(energy, force);
     }
 
-    IEnumerator yollohSeisme()
+    IEnumerator DoSeisme()
     {
 
         GameObject ground = GameObject.FindGameObjectWithTag("Ground");

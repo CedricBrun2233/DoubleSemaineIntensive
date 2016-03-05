@@ -6,14 +6,12 @@ public class CameraScript : MonoBehaviour
 {
 
     float horizontalMovment;
-    float verticalLeft;
-    float horizontalLeft;
     public GameObject mapCenter;
     public GameObject[] dices;
-    public float speedRotationArround = 20f;
-    public float speedRotationVerticalScope = 20f;
-    public float speedRotationHorizontalScope = 20f;
-    public float forceThrow = 200f;
+    public int speedRotationArround = 20;
+    public int speedRotationScope = 20;
+    public int speedRotationHorizontalScope = 20;
+    public int speedRotationVerticalScope = 32;
     public float accuracyMin = Mathf.PI / 4;
     public float accuracyMax = Mathf.PI / 12;
     float accuracy = Mathf.PI / 12;
@@ -35,16 +33,18 @@ public class CameraScript : MonoBehaviour
     void Start()
     {
         dices = new GameObject[3];
+        Player player = TurnManager.GetInstance().currentPlayer;
+        GameObject go;
 
         dices[0] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
         dices[1] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
         dices[2] = Instantiate(Resources.Load("GA/Prefabs/diceTest", typeof(GameObject))) as GameObject;
 
-        TurnManager.GetInstance().currentPlayer.GODices = this.dices;
-        for(int i = 0; i < TurnManager.GetInstance().currentPlayer.GODices.Length; i++)
+        player.GODices = this.dices;
+        for(int i = 0; i < player.GODices.Length; i++)
         {
-            GameObject go = TurnManager.GetInstance().currentPlayer.GODices[i];
-            TurnManager.GetInstance().currentPlayer.dices[i] = (go.GetComponent<Dice>());
+            go = player.GODices[i];
+            player.dices[i] = (go.GetComponent<Dice>());
         }
         for(int i = 0; i<3;i++)
         {
@@ -119,14 +119,15 @@ public class CameraScript : MonoBehaviour
         {
             currentPosition = POSITION.ROTATEARROUND;
         }
-        verticalLeft = Input.GetAxis("LeftVertical");
-        horizontalLeft = Input.GetAxis("LeftHorizontal");
-        transform.Rotate(new Vector3(horizontalLeft * speedRotationVerticalScope, -verticalLeft * speedRotationHorizontalScope, 0) * Time.deltaTime);
+        transform.Rotate(new Vector3(Input.GetAxis("LeftHorizontal") * speedRotationVerticalScope, -Input.GetAxis("LeftVertical") * speedRotationHorizontalScope, 0) * Time.deltaTime);
 
         if (Input.GetAxis("Trigger") > 0.5f || Input.GetAxis("Trigger") < -0.5f)
         {
-            foreach (GameObject currentDice in dices)
+            GameObject currentDice;
+            for(int i = 0; i < dices.Length; i++)
             {
+                currentDice = dices[i];
+
                 currentDice.transform.parent = null;
                 force = Mathf.Max(force, 10f);
                 Vector3 AF = transform.forward * force * 30 * multiplierForce;
@@ -155,7 +156,6 @@ public class CameraScript : MonoBehaviour
         accuracy += multiplier*5;
         accuracy = Mathf.Min(accuracyMin, accuracy);
         accuracy = Mathf.Max(accuracyMax, accuracy);
-        Debug.Log(accuracy);
     }
 
     void checkforce()
